@@ -73,7 +73,7 @@ function terminate_directory_path( $p_path ) {
  * @access public
  */
 function is_blank( $p_var ) {
-	$p_var = trim( $p_var );
+	$p_var = trim( (string)$p_var );
 	$t_str_len = strlen( $p_var );
 	if( 0 == $t_str_len ) {
 		return true;
@@ -99,13 +99,11 @@ function ini_get_bool( $p_name ) {
 			case '':
 			case '0':
 				return false;
-				break;
 			case 'on':
 			case 'true':
 			case 'yes':
 			case '1':
 				return true;
-				break;
 		}
 	}
 	return (bool)$t_result;

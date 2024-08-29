@@ -47,28 +47,40 @@ class EmailData {
 
 	/**
 	 * Subject text
+	 *
+	 * @var string
 	 */
 	public $subject = '';
 
 	/**
 	 * Body text
+	 *
+	 * @var string
 	 */
 	public $body = '';
 
 	/**
 	 * Meta Data array
+	 *
+	 * @var array
 	 */
 	public $metadata = array(
 		'headers' => array(),
+		'cc' => array(),
+		'bcc' => array(),
 	);
 
 	/**
 	 * Email ID
+	 *
+	 * @var int
 	 */
 	public $email_id = 0;
 
 	/**
 	 * Submitted
+	 *
+	 * @var string
 	 */
 	public $submitted = '';
 }

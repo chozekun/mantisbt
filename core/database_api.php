@@ -178,7 +178,7 @@ function db_connect( $p_dsn, $p_hostname = null, $p_username = null, $p_password
 
 /**
  * Returns whether a connection to the database exists
- * @global stores database connection state
+ * @global $g_db_connected stores database connection state
  * @return boolean indicating if the a database connection has been made
  */
 function db_is_connected() {
@@ -303,9 +303,6 @@ function db_query_bound() {
  * This will pop the database parameter stack {@see MantisDbParam} after a
  * successful execution, unless specified otherwise
  *
- * @global array of previous executed queries for profiling
- * @global adodb database connection object
- * @global boolean indicating whether queries array is populated
  * @param string  $p_query     Parameterlised Query string to execute.
  * @param array   $p_arr_parms Array of parameters matching $p_query.
  * @param integer $p_limit     Number of results to return.
@@ -373,7 +370,7 @@ function db_affected_rows() {
 /**
  * Retrieve the next row returned from a specific database query
  * @param IteratorAggregate &$p_result Database Query Record Set to retrieve next result for.
- * @return array Database result
+ * @return array|false Database result or false if
  */
 function db_fetch_array( IteratorAggregate &$p_result ) {
 	global $g_db_functional_type;
@@ -628,33 +625,6 @@ function db_close() {
 }
 
 /**
- * prepare a string before DB insertion
- * @param string $p_string Unprepared string.
- * @return string prepared database query string
- * @deprecated db_query should be used in preference to this function. This function may be removed in 1.2.0 final
- */
-function db_prepare_string( $p_string ) {
-	global $g_db;
-	$t_db_type = config_get_global( 'db_type' );
-
-	switch( $t_db_type ) {
-		case 'mssqlnative':
-		case 'odbc_mssql':
-			return addslashes( $p_string );
-		case 'mysqli':
-			$t_escaped = $g_db->qstr( $p_string, false );
-			return mb_substr( $t_escaped, 1, mb_strlen( $t_escaped ) - 2 );
-		case 'pgsql':
-			return pg_escape_string( $p_string );
-		case 'oci8':
-			return $p_string;
-		default:
-			error_parameters( 'db_type', $t_db_type );
-			trigger_error( ERROR_CONFIG_OPT_INVALID, ERROR );
-	}
-}
-
-/**
  * Prepare a binary string before DB insertion
  * Use of this function is required for some DB types, to properly encode
  * BLOB fields prior to calling db_query()
@@ -669,16 +639,13 @@ function db_prepare_binary_string( $p_string ) {
 		case 'odbc_mssql':
 			$t_content = unpack( 'H*hex', $p_string );
 			return '0x' . $t_content['hex'];
-			break;
 		case 'pgsql':
 			return $g_db->BlobEncode( $p_string );
-			break;
 		case 'mssqlnative':
 		case 'oci8':
 			# Fall through, mssqlnative, oci8 store raw data in BLOB
 		default:
 			return $p_string;
-			break;
 	}
 }
 
@@ -1172,9 +1139,11 @@ function db_oracle_adapt_query_syntax( $p_query, array &$p_arr_parms = null ) {
 }
 
 /**
- * Replace 4-byte UTF-8 chars
+ * Replace 4-byte UTF-8 chars.
+ *
  * This is a workaround to avoid data getting truncated on MySQL databases
- * using native utf8 encoding, which only supports 3 bytes chars (see #20431)
+ * using native utf8 encoding, which only supports 3 bytes chars (see #20431).
+ *
  * @param string $p_string
  * @return string
  */
@@ -1188,7 +1157,7 @@ function db_mysql_fix_utf8( $p_string ) {
 		# replace with U+FFFD to avoid potential Unicode XSS attacks,
 		# see http://unicode.org/reports/tr36/#Deletion_of_Noncharacters
 		"\xEF\xBF\xBD",
-		$p_string
+		(string)$p_string
 	);
 }
 

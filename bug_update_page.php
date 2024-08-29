@@ -173,7 +173,7 @@ layout_page_begin();
 			</h4>
 			<div class="widget-toolbar no-border">
 				<div class="widget-menu">
-					<?php print_small_button( string_get_bug_view_url( $t_bug_id ), lang_get( 'back_to_bug_link' ) ); ?>
+					<?php print_extra_small_button( string_get_bug_view_url( $t_bug_id ), lang_get( 'back_to_bug_link' ) ); ?>
 				</div>
 			</div>
 		</div>
@@ -187,7 +187,7 @@ layout_page_begin();
 if( $t_top_buttons_enabled ) {
 ?>
 				<div class="widget-toolbox padding-8 clearfix">
-					<input <?php helper_get_tab_index(); ?>
+					<input <?php echo helper_get_tab_index(); ?>
 						type="submit" class="btn btn-primary btn-white btn-round"
 						value="<?php echo lang_get( 'update_information_button' ); ?>" />
 				</div>
@@ -234,10 +234,17 @@ if( $t_show_id || $t_show_project || $t_show_category || $t_show_view_state || $
 	echo '<td>';
 
 	if( $t_show_category ) {
+        if( !category_is_enabled( $t_bug->category_id ) ) {
+			print_icon( 'warning',
+				'fa-status-box bigger-125 red',
+				lang_get( 'category_disabled' )
+			);
+			echo "&nbsp;";
+		}
 		echo '<select ' . helper_get_tab_index()
 			. ( $t_allow_no_category ? '' : ' required' )
 			. ' id="category_id" name="category_id" class="input-sm">';
-		print_category_option_list( $t_bug->category_id, $t_bug->project_id );
+		print_category_option_list( $t_bug->category_id, $t_bug->project_id, true );
 		echo '</select>';
 	}
 
@@ -708,7 +715,7 @@ foreach ( $t_related_custom_field_ids as $t_id ) {
 		echo '<tr>';
 		echo '<td class="category">';
 		echo '<label', $t_required_class, $t_label_for, '>';
-		echo '<span>', string_display_line( lang_get_defaulted( $t_def['name'] ) ), '</span>';
+		echo '<span>', string_attribute( lang_get_defaulted( $t_def['name'] ) ), '</span>';
 		echo '</label>';
 		echo '</td><td colspan="5">';
 		print_custom_field_input( $t_def, $t_bug_id, $t_def['require_update'] );
@@ -754,7 +761,8 @@ if( config_get( 'time_tracking_enabled' ) ) {
 	if( access_has_bug_level( config_get( 'time_tracking_edit_threshold' ), $t_bug_id ) ) {
 		echo '<tr>';
 		echo '<th class="category"><label for="time_tracking">' . lang_get( 'time_tracking' ) . '</label></th>';
-		echo '<td colspan="5"><input type="text" id="time_tracking" name="time_tracking" class="input-sm" size="5" placeholder="hh:mm" /></td></tr>';
+		echo '<td colspan="5"><input type="text" id="time_tracking" name="time_tracking" class="input-sm"',
+			helper_get_tab_index(), 'size="5" placeholder="hh:mm" /></td></tr>';
 	}
 }
 
@@ -769,7 +777,7 @@ echo '</div>';
 if( $t_bottom_buttons_enabled ) {
 ?>
 	<div class="widget-toolbox padding-8 clearfix">
-		<input <?php helper_get_tab_index(); ?>
+		<input <?php echo helper_get_tab_index(); ?>
 			type="submit" class="btn btn-primary btn-white btn-round"
 			value="<?php echo lang_get( 'update_information_button' ); ?>" />
 	</div>
@@ -784,7 +792,7 @@ if( $t_bottom_buttons_enabled ) {
 
 <?php
 define( 'BUGNOTE_VIEW_INC_ALLOW', true );
-include( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'bugnote_view_inc.php' );
+include( __DIR__ . '/bugnote_view_inc.php' );
 layout_page_end();
 
 last_visited_issue( $t_bug_id );

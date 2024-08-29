@@ -74,14 +74,14 @@ function table_print_filter_headers() {
 ?>
 	<thead>
 		<tr>
-			<th><?php echo lang_get( 'query_name' ) ?></td>
+			<th><?php echo lang_get( 'query_name' ) ?></th>
 			<?php if( $t_rss_enabled ) { ?>
-				<th><?php echo lang_get( 'rss' ) ?></td>
+				<th><?php echo lang_get( 'rss' ) ?></th>
 			<?php } ?>
-			<th><?php echo lang_get( 'email_project' ) ?></td>
-			<th><?php echo lang_get( 'public' ) ?></td>
-			<th><?php echo lang_get( 'owner' ) ?></td>
-			<th><?php echo lang_get( 'actions' ) ?></td>
+			<th><?php echo lang_get( 'email_project' ) ?></th>
+			<th><?php echo lang_get( 'public' ) ?></th>
+			<th><?php echo lang_get( 'owner' ) ?></th>
+			<th><?php echo lang_get( 'actions' ) ?></th>
 		</tr>
 	</thead>
 <?php
@@ -93,7 +93,7 @@ function table_print_filter_row( $p_filter_id ) {
 	echo '<tr>';
 	# Filter name
 	echo '<td>';
-	$t_name = string_display_line( filter_get_field( $p_filter_id, 'name' ) );
+	$t_name = filter_get_field( $p_filter_id, 'name' );
 	print_link( 'view_filters_page.php?filter_id=' . $p_filter_id, $t_name );
 	echo '</td>';
 	# RSS

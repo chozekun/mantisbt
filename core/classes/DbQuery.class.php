@@ -46,8 +46,8 @@ require_api( 'logging_api.php' );
  * The internal processing steps for query string are:
  * 1) $query_string: stores the user input string, containing parameter tokens for all
  *   supported formats:
- *     - ":{string}" For labeled parameters. Binded values are stored in $query_bind_array
- *     - "${int}" For anonymous parameters. Binded values are stored in $query_autobind_array
+ *     - ":{string}" For labeled parameters. Bound values are stored in $query_bind_array
+ *     - "${int}" For anonymous parameters. Bound values are stored in $query_autobind_array
  *     - "${string}{int}" For special constructs, eg: $in0 for late binding IN clauses
  * 2) $expanded_query_string: stores the query string after expansion of special constructs
  *   into standard "${int}" parameters
@@ -857,7 +857,7 @@ class DbQuery {
 			$this->fetch();
 		}
 		if( is_numeric( $p_index_or_name ) ) {
-			if( count( $this->current_row ) > $p_index_or_name ) {
+			if( $this->current_row && count( $this->current_row ) > $p_index_or_name ) {
 				# get the element at that numerical position
 				$t_keys = array_keys( $this->current_row );
 				$t_value = $this->current_row[$t_keys[$p_index_or_name]];

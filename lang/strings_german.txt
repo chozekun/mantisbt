@@ -43,6 +43,7 @@
  * @author Atrol
  * @author Ayonik
  * @author Campmaster
+ * @author Cupkake4Yoshi
  * @author Das Schäfchen
  * @author Diebuche
  * @author Erdemaslancan
@@ -51,7 +52,9 @@
  * @author FF11
  * @author Gebu
  * @author Geitost
+ * @author Ignatgg
  * @author Imre
+ * @author Justman10000
  * @author KarlReichert
  * @author Kghbln
  * @author Luke081515
@@ -110,6 +113,7 @@ $s_unassigned_projects_label = 'Nicht zugewiesene Projekte';
 $s_copy_users = 'Benutzer kopieren';
 $s_copy_categories_from = 'Kategorien kopieren von';
 $s_copy_categories_to = 'Kategorien kopieren nach';
+$s_copy_categories_exclude_inherited = 'Vererbte Kategorien ausschließen';
 $s_copy_versions_from = 'Versionen kopieren von';
 $s_copy_versions_to = 'Versionen kopieren nach';
 $s_copy_users_from = 'Benutzer kopieren von';
@@ -139,6 +143,7 @@ $s_inherit = 'Kategorien erben';
 $s_inherit_global = 'Globale Kategorien erben';
 $s_inherit_parent = 'Übergeordnete Kategorien erben';
 $s_update_subproject_inheritance = 'Aktualisiere Vererbung des Unterprojekts';
+$s_category_disabled = 'Die Kategorie wurde deaktiviert. Bitte wählen Sie eine andere aus.';
 $s_duplicate_of = 'Duplikat von';
 $s_has_duplicate = 'hat Duplikat';
 $s_related_to = 'verwandt mit';
@@ -505,12 +510,11 @@ $s_log_page_time = 'Ausführungszeit';
 $s_log_page_caller = 'Aufrufer';
 $s_log_page_event = 'Ereignis';
 $s_please_report = 'Bitte melde dies den %1$en.';
-$s_warning_plain_password_authentication = '<strong>WARNUNG:</strong> Einfache Passwort-Authentifizierung wird benutzt, dies wird das Passwort den Administratoren offenlegen.';
 $s_warning_default_administrator_account_present = '<strong>Warnung:</strong> Sie sollten das Standard-Administrator-Konto deaktivieren oder das Passwort ändern.';
 $s_warning_admin_directory_present = '<strong>Warnung:</strong> Das Verzeichnis „admin“ sollte entfernt oder der Zugriff darauf eingeschränkt werden.';
+$s_warning_host_header_injection_hazard = '<strong>Warnung:</strong> "path" wurde in config_inc.php nicht definiert. Wenn Sie diese Konfiguration leer lassen, stellt dies ein Sicherheitsrisiko dar, da der Pfad auf Grundlage der Header der HTTP-Anfrage festgelegt wird, wodurch Ihr System Host-Header-Injection-Angriffen ausgesetzt wird.';
 $s_warning_change_setting = '<strong>Warnung:</strong> „%1$s“ ist nicht auf den Standardwert (%2$s) gesetzt.';
 $s_warning_security_hazard = 'Dies ist ein potentielles Sicherheitsrisiko, sodass sensible Informationen nach außen gelangen können.';
-$s_warning_integrity_hazard = 'Dies führt dazu, dass MantisBT beim Auftreten von Fehlern weiterläuft und kann zu System-/Daten-Integritätsproblemen führen.';
 $s_warning_debug_email = '<strong>Warnung:</strong> „<code>debug_email</code>“ ist nicht auf <code>OFF</code> festgelegt. Alle Benachrichtigungs-E-Mails werden an „%1$s“ versandt.';
 $s_error_database_no_schema_version = '<strong>Fehler:</strong> Die Version Ihres Datenbankschemas ist 0. Dies kann auftreten, wenn die Datenbank beschädigt ist, der Wert von „database_version“ nicht von der Konfigurationstabelle abgerufen werden konnte oder die Datenbankstruktur von einer veralteten MantisBT-Version ist (vor 1.0.0).';
 $s_error_database_version_out_of_date_2 = '<strong>Warnung:</strong> Die Datenbank-Struktur könnte veraltet sein. Bitte <a href="admin/install.php">bearbeiten</a> Sie diese vor dem Anmelden.';
@@ -539,7 +543,7 @@ $s_archives = 'Archive';
 $s_rss = 'RSS';
 $s_site_information = 'Informationen zur Website';
 $s_mantis_version = 'MantisBT-Version';
-$s_schema_version = 'Schema-Version';
+$s_schema_version = 'Datenbankschema-Version';
 $s_site_path = 'Pfad der Website';
 $s_core_path = 'Core-Pfad';
 $s_plugin_path = 'Plugin-Pfad';
@@ -549,6 +553,7 @@ $s_create_new_account_title = 'Neues Konto erstellen';
 $s_verify_password = 'Passwort verifizieren';
 $s_enabled = 'Aktiv';
 $s_enabled_label = 'Aktiv';
+$s_disabled = 'Deaktiviert';
 $s_protected = 'Änderungsgeschützt';
 $s_protected_label = 'Änderungsgeschützt';
 $s_create_user_button = 'Benutzer anlegen';
@@ -584,6 +589,7 @@ $s_p = 'Änderungsgeschützt';
 $s_date_created = 'Erstellungsdatum';
 $s_last_visit = 'Letzter Besuch';
 $s_last_visit_label = 'Letzter Besuch:';
+$s_failed_login_count = 'Fehlgeschlagene Anmeldungen';
 $s_edit_user_link = 'Benutzer bearbeiten';
 $s_search_user_hint = 'Benutzername, bürgerlicher Name oder E-Mail';
 $s_separate_list_items_by = '(Listeneinträge mit „%1$s“ trennen)';
@@ -645,6 +651,7 @@ $s_readonly_status = 'Status, bei dem ein Eintrag schreibgeschützt wird';
 $s_reopen_status = 'Status, auf den ein wiedereröffneter Eintrag gesetzt wird';
 $s_reopen_resolution = 'Lösung, auf die ein wiedereröffneter Eintrag gesetzt wird';
 $s_limit_view_unless_threshold_option = 'Einträge anderer Benutzer ansehen (falls nicht gesetzt, ist der Zugriff auf selbst erfasste, zugewiesene und beobachtete Einträge beschränkt)';
+$s_export_issues = 'Einträge exportieren';
 $s_config_delete_sure = 'Sind Sie sicher, dass Sie die Einstellungen für %1$s in Projekt %2$s löschen möchten?';
 $s_delete_config_button = 'Einstellungen löschen';
 $s_configuration_report = 'Konfigurations-Report';
@@ -770,10 +777,10 @@ $s_reset_password_msg2 = 'Passwort zurücksetzen setzt ein leeres Passwort.';
 $s_show_all_users = 'ALLE';
 $s_users_unused = 'UNBENUTZT';
 $s_users_new = 'NEU';
+$s_email_not_unique = 'E-Mail-Adresse ist mindestens mit einem weiteren Benutzer-Account assoziiert';
 $s_account_reset_msg = 'Bestätigungsnachricht wurde an Ihre E-Mail-Adresse geschickt …';
 $s_account_reset_msg2 = 'Leeres Passwort wurde gesetzt …';
 $s_account_unlock_msg = 'Das Benutzerkonto wurde entsperrt';
-$s_manage_user_protected_msg = 'Konto geschützt. Die Felder \'Zugangsberechtigung\' und \'Aktiv\' können nicht geändert werden. Andere Felder wurden erfolgreich aktualisiert.';
 $s_manage_user_updated_msg = 'Konto aktualisiert …';
 $s_email_user_updated_subject = 'Benutzerkonto aktualisiert';
 $s_email_user_updated_msg = 'Ihr Benutzerkonto wurde von einem Administrator aktualisiert. Eine Liste der Änderungen wird unten aufgelistet. Sie können Ihre Kontodetails und Einstellungen jederzeit unter der folgenden URL ändern:';
@@ -870,6 +877,7 @@ $s_signup_done_title = 'Konto-Registrierung ausgeführt';
 $s_password_emailed_msg = 'Gratulation. Sie haben sich erfolgreich registriert. Ihnen wird jetzt eine Bestätigungs-E-Mail geschickt um Ihre E-Mail-Adresse zu überprüfen. Nachdem Sie den Link in der E-Mail besucht haben, ist Ihr Konto freigeschaltet.';
 $s_no_reponse_msg = 'Sie haben sieben Tage, um die Kontobestätigung abzuschließen. Falls Sie diese innerhalb dieser Periode nicht ausführen, wird das neu registrierte Konto gelöscht.';
 $s_signup_captcha_request_label = 'Geben Sie den Code ein, den Sie im Rahmen auf der rechten Seite sehen:';
+$s_signup_captcha_play = 'Sprachausgabe Captcha-Code';
 $s_signup_captcha_refresh = 'Einen neuen Code erzeugen';
 $s_signup_info = 'Nach dem Abschicken dieses Formulars und der Überprüfung Ihrer Antworten wird Ihnen eine Bestätigungsnachricht an die angegebene Adresse geschickt.<br />Benutzen Sie den Link, der in der E-Mail angegeben ist, um Ihr Konto zu aktivieren. Falls Sie dies nicht innerhalb von sieben Tagen ausführen, kann das Konto gelöscht werden.<br />Sie müssen eine gültige E-Mail-Adresse angeben, um die Bestätigungs-E-Mail zu erhalten.';
 $s_signup_title = 'Anmeldung';
@@ -883,18 +891,18 @@ $s_site_settings_link = 'Eigenschaften';
 $s_site_settings_updated_msg = 'Eigenschaften wurden aktualisiert';
 $s_summary_title = 'Zusammenfassung';
 $s_summary_advanced_link = 'Erweiterte Zusammenfassung';
-$s_by_project = 'Gruppiert nach Projekt';
-$s_by_status = 'Gruppiert nach Status';
-$s_by_date = 'Gruppiert nach Datum';
-$s_by_severity = 'Gruppiert nach Schweregrad';
-$s_by_resolution = 'Gruppiert nach Lösungs-Status';
-$s_by_category = 'Gruppiert nach Kategorie';
-$s_by_priority = 'Gruppiert nach Priorität';
-$s_by_developer = 'Gruppiert nach Entwickler';
-$s_by_reporter = 'Gruppiert nach Reporter';
-$s_reporter_by_resolution = 'Reporter gruppiert nach Lösungs-Status';
+$s_by_project = 'Nach Projekt';
+$s_by_status = 'Nach Status';
+$s_by_date = 'Nach Datum';
+$s_by_severity = 'Nach Schweregrad';
+$s_by_resolution = 'Nach Lösungs-Status';
+$s_by_category = 'Nach Kategorie';
+$s_by_priority = 'Nach Priorität';
+$s_by_developer = 'Nach Entwickler';
+$s_by_reporter = 'Nach Reporter';
+$s_reporter_by_resolution = 'Reporter nach Lösungs-Status';
 $s_reporter_effectiveness = 'Reporter-Effektivität';
-$s_developer_by_resolution = 'Entwickler gruppiert nach Lösungs-Status';
+$s_developer_by_resolution = 'Entwickler nach Lösungs-Status';
 $s_percentage_fixed = '% behoben';
 $s_percentage_errors = '% fehlerhaft';
 $s_errors = 'Fehlerhaft';
@@ -1240,6 +1248,7 @@ $s_database_information = 'MantisBT-Datenbankinformationen';
 $s_path_information = 'MantisBT-Pfadinformationen';
 $s_mantisbt_database_statistics = 'MantisBT-Datenbankstatistiken';
 $s_php_version = 'PHP-Version';
+$s_os_information = 'Betriebssystem-Informationen';
 $s_adodb_version = 'ADOdb-Version';
 $s_database_driver = 'Datenbanktreiber';
 $s_database_version_description = 'Datenbankversion, Beschreibung';
@@ -1286,6 +1295,7 @@ $MANTIS_ERROR[ERROR_PROTECTED_ACCOUNT] = 'Dieses Konto ist geschützt. Sie könn
 $MANTIS_ERROR[ERROR_ACCESS_DENIED] = 'Zugriff verweigert.';
 $MANTIS_ERROR[ERROR_UPLOAD_FAILURE] = 'Dateiübertragung fehlgeschlagen. Datei konnte nicht von MantisBT gelesen werden. Bitte prüfe die Projekteinstellungen.';
 $MANTIS_ERROR[ERROR_FILE_TOO_BIG] = 'Dateiübertragung fehlgeschlagen. Wahrscheinlich liegt die Dateigröße über der erlaubten für diese PHP-Installation.';
+$MANTIS_ERROR[ERROR_FILE_NAME_TOO_LONG] = 'Dateiname "%1$s" ist zu lang.';
 $MANTIS_ERROR[ERROR_GPC_VAR_NOT_FOUND] = 'Ein erforderlicher Parameter für diese Seite (%1$s) wurde nicht gefunden.';
 $MANTIS_ERROR[ERROR_USER_NAME_NOT_UNIQUE] = 'Dieser Benutzername ist schon vergeben. Gehen Sie zurück und wählen Sie einen anderen.';
 $MANTIS_ERROR[ERROR_USER_EMAIL_NOT_UNIQUE] = 'Diese E-Mail-Adresse wird bereits verwendet. Gehen Sie bitte zurück und geben Sie eine andere ein.';
@@ -1340,7 +1350,6 @@ $MANTIS_ERROR[ERROR_LDAP_AUTH_FAILED] = 'LDAP-Authentifizierung fehlgeschlagen.'
 $MANTIS_ERROR[ERROR_LDAP_SERVER_CONNECT_FAILED] = 'Verbindung zum LDAP-Server fehlgeschlagen.';
 $MANTIS_ERROR[ERROR_LDAP_UPDATE_FAILED] = 'Aktualisierung des LDAP-Eintrags fehlgeschlagen.';
 $MANTIS_ERROR[ERROR_LDAP_USER_NOT_FOUND] = 'LDAP-Benutzereintrag nicht gefunden.';
-$MANTIS_ERROR[ERROR_LDAP_EXTENSION_NOT_LOADED] = 'LDAP-Erweiterung ist nicht geladen.';
 $MANTIS_ERROR[ERROR_LDAP_UNABLE_TO_SET_MIN_TLS] = 'Das Setzen der minimalen TLS-Version auf dem LDAP-Server ist gescheitert.';
 $MANTIS_ERROR[ERROR_LDAP_UNABLE_TO_STARTTLS] = 'Kann StartTLS nicht auf dem LDAP-Server installieren.';
 $MANTIS_ERROR[ERROR_DB_CONNECT_FAILED] = 'Verbindung zur Datenbank fehlgeschlagen. Reportmeldung lautet #%1$d: %2$s.';
@@ -1348,10 +1357,10 @@ $MANTIS_ERROR[ERROR_DB_QUERY_FAILED] = 'Datenbankabfrage fehlgeschlagen. Die Rep
 $MANTIS_ERROR[ERROR_DB_SELECT_FAILED] = 'Datenbankauswahl fehlgeschlagen. Reportmeldung der Datenbank lautet #%1$d: %2$s.';
 $MANTIS_ERROR[ERROR_DB_IDENTIFIER_TOO_LONG] = 'Die Datenbankkennung „%1$s“ ist zu lang. Versuche, die Größe von g_db_table_prefix/suffix zu reduzieren.';
 $MANTIS_ERROR[ERROR_CATEGORY_DUPLICATE] = 'Eine Kategorie mit diesem Namen existiert bereits.';
-$MANTIS_ERROR[ERROR_CATEGORY_NO_ACTION] = 'Kein Kopiervorgang angegeben.';
+$MANTIS_ERROR[ERROR_NO_COPY_ACTION] = 'Kein Kopiervorgang angegeben.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND] = 'Kategorie nicht gefunden.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND_FOR_PROJECT] = 'Die Kategorie „%1$s“ wurde für das Projekt „%2$s“ nicht gefunden.';
-$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_DEFAULT] = 'Diese Kategorie kann nicht gelöscht werden, da sie als „Standardkategorie für Verschiebungen“ definiert ist.';
+$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_UPDATE_DEFAULT] = 'Der Vorgang kann nicht abgeschlossen werden, da die Kategorie "%1$s" in mindestens einem Projekt oder global als Standard für Verschiebungen definiert ist.';
 $MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_HAS_ISSUES] = 'Die Kategorie „%1$s“ kann nicht gelöscht werden, da sie mit einem oder mehreren Einträgen verknüpft ist.';
 $MANTIS_ERROR[ERROR_VERSION_DUPLICATE] = 'Eine Version mit diesem Namen existiert bereits.';
 $MANTIS_ERROR[ERROR_VERSION_NOT_FOUND] = 'Version „%1$s“ nicht gefunden.';
@@ -1403,7 +1412,6 @@ $MANTIS_ERROR[ERROR_SESSION_VAR_NOT_FOUND] = 'Session-Variable „%1$s“ wurde 
 $MANTIS_ERROR[ERROR_SESSION_NOT_VALID] = 'Ihre Sitzung ist ungültig geworden.';
 $MANTIS_ERROR[ERROR_FORM_TOKEN_INVALID] = 'Ungültiges Sicherheitstoken zum Formular. Dies kann durch einen Sitzungsablauf oder durch versehentliches doppeltes Speichern des Formulars verursacht worden sein.';
 $MANTIS_ERROR[ERROR_CRYPTO_MASTER_SALT_INVALID] = 'Aus Sicherheitsgründen steht MantisBT nicht zur Verfügung, wenn $g_crypto_master_salt in config_inc.php nicht korrekt gesetzt oder kürzer als 16 Zeichen lang ist.';
-$MANTIS_ERROR[ERROR_CRYPTO_CAN_NOT_GENERATE_STRONG_RANDOMNESS] = 'Es konnte kein Treiber / Quelle für sichere Zufallszahlen zur Verschlüsselung gefunden werden.';
 $MANTIS_ERROR[ERROR_INVALID_REQUEST_METHOD] = 'Auf diese Seite kann nicht mit dieser Methode zugegriffen werden.';
 $MANTIS_ERROR[ERROR_INVALID_SORT_FIELD] = 'Ungültiges Sortierfeld.';
 $MANTIS_ERROR[ERROR_INVALID_DATE_FORMAT] = 'Ungültiges Datumsformat';
@@ -1417,6 +1425,8 @@ $MANTIS_ERROR[ERROR_SPAM_SUSPECTED] = 'Sie haben die erlaubte Aktivitätsgrenze 
 $MANTIS_ERROR[ERROR_FIELD_TOO_LONG] = 'Das Feld „%1$s“ muss kürzer oder gleich als %2$d Zeichen lang sein.';
 $MANTIS_ERROR[ERROR_API_TOKEN_NAME_NOT_UNIQUE] = 'Der Name des API-Tokens „%s“ ist bereits in Verwendung.';
 $MANTIS_ERROR[ERROR_LOGFILE_NOT_WRITABLE] = 'Die in $g_log_destination angegebene Datei „%s“ ist nicht beschreibbar.';
+$MANTIS_ERROR[ERROR_MONITOR_ACCESS_TOO_LOW] = 'Der hinzugefügte Benutzer hat keine ausreichenden Rechte, um diesen Eintrag zu beobachten.';
+$MANTIS_ERROR[ERROR_USER_TOKEN_NOT_FOUND] = 'Benutzer API-Token mit ID "%d" nicht gefunden.';
 $s_dropzone_default_message = 'Dateien hier zum Hochladen ablegen, oder klicken oder einfügen.';
 $s_dropzone_fallback_message = 'Ihr Webbrowser unterstützt keine Dateiuploads durch Ziehen und Ablegen.';
 $s_dropzone_file_too_big = 'Die Datei ist zu groß ({{filesize}} MiB). Maximale Dateigröße: {{maxFilesize}} MiB.';
@@ -1427,7 +1437,8 @@ $s_dropzone_cancel_upload_confirmation = 'Sind Sie sich sicher, dass Sie diesen 
 $s_dropzone_remove_file = 'Datei entfernen';
 $s_dropzone_max_files_exceeded = 'Sie können keine weiteren Dateien hochladen.';
 $s_dropzone_not_supported = 'Dropzone.js unterstützt keine älteren Webbrowser!';
-$s_dropzone_multiple_files_too_big = 'Die folgenden Dateien:{{files}}überschreiten die maximal erlaubte Dateigröße ({{maxFilesize}} MiB)';
+$s_dropzone_multiple_files_too_big = 'Die folgenden Dateien überschreiten die maximal erlaubte Dateigröße({{maxFilesize}} MiB):{{files}}';
+$s_dropzone_multiple_filenames_too_long = 'Die folgenden Dateinamen sind zu lang (maximal {{maxFilenameLength}} Zeichen):{{files}}';
 $s_save = 'Speichern';
 $s_reset = 'Zurücksetzen';
 $s_persist = 'Merken';

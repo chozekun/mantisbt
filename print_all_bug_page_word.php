@@ -72,6 +72,7 @@ require_api( 'project_api.php' );
 require_api( 'string_api.php' );
 
 auth_ensure_user_authenticated();
+access_ensure_project_level( config_get( 'print_reports_threshold' ) );
 
 $f_type_page	= gpc_get_string( 'type_page', 'word' );
 $f_search		= gpc_get_string( 'search', false ); # @todo need a better default
@@ -392,7 +393,7 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 ?>
 <tr>
 	<td class="bold">
-		<?php echo string_display_line( sprintf( lang_get( 'label' ), lang_get_defaulted( $t_def['name'] ) ) ) ?>
+		<?php echo string_attribute( sprintf( lang_get( 'label' ), lang_get_defaulted( $t_def['name'] ) ) ) ?>
 	</td>
 	<td colspan="5">
 		<?php print_custom_field_value( $t_def, $t_custom_field_id, $t_id ); ?>

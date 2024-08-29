@@ -33,10 +33,11 @@ require_api( 'relationship_api.php' );
 require_api( 'string_api.php' );
 require_api( 'user_api.php' );
 
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_enum_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_issue_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_project_api.php' );
+$t_soap_dir = dirname( __DIR__, 2 ) . '/api/soap/';
+require_once( $t_soap_dir . 'mc_api.php' );
+require_once( $t_soap_dir . 'mc_enum_api.php' );
+require_once( $t_soap_dir . 'mc_issue_api.php' );
+require_once( $t_soap_dir . 'mc_project_api.php' );
 
 use Mantis\Exceptions\ClientException;
 
@@ -325,6 +326,17 @@ class IssueAddCommand extends Command {
 					ERROR_ACCESS_DENIED );
 			}
 
+			foreach( $t_issue['files'] as $t_file ) {
+				$t_name = $t_file['name'];
+				if( strlen( $t_name ) > DB_FIELD_SIZE_FILENAME ) {
+					throw new ClientException(
+						"File name too long '$t_name'",
+						ERROR_FILE_NAME_TOO_LONG,
+						array( $t_name )
+					);
+				}
+			}
+
 			$this->files = $t_issue['files'];
 		}
 
@@ -336,7 +348,7 @@ class IssueAddCommand extends Command {
 	/**
 	 * Process the command.
 	 *
-	 * @returns array Command response
+	 * @return array Command response
 	 * @throws ClientException
 	 */
 	protected function process() {

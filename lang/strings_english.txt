@@ -46,7 +46,7 @@
  * @author Glenn Henshaw
  * @author Jeroen Latour
  * @author Jim Hanley
- * @author John Reese
+ * @author Amethyst Reese
  * @author Julian Fitzell
  * @author Kenzaburo Ito
  * @author Lincoln Maskey
@@ -114,6 +114,7 @@ $s_unassigned_projects_label = 'Unassigned Projects';
 $s_copy_users = 'Copy Users';
 $s_copy_categories_from = 'Copy Categories From';
 $s_copy_categories_to = 'Copy Categories To';
+$s_copy_categories_exclude_inherited = 'Exclude inherited categories';
 $s_copy_versions_from = 'Copy Versions From';
 $s_copy_versions_to = 'Copy Versions To';
 $s_copy_users_from = 'Copy Users From';
@@ -144,6 +145,7 @@ $s_inherit = 'Inherit Categories';
 $s_inherit_global = 'Inherit Global Categories';
 $s_inherit_parent = 'Inherit Parent Categories';
 $s_update_subproject_inheritance = 'Update Subproject Inheritance';
+$s_category_disabled = 'Category has been disabled, please select another one';
 
 $s_duplicate_of = 'duplicate of';
 $s_has_duplicate = 'has duplicate';
@@ -623,12 +625,11 @@ $s_log_page_event = 'Event';
 $s_please_report = 'Please report this to the %1$s.';
 
 # login.php
-$s_warning_plain_password_authentication = '<strong>Warning:</strong> Plain password authentication is used, this will expose your passwords to administrators.';
 $s_warning_default_administrator_account_present = '<strong>Warning:</strong> You should disable the default \'administrator\' account or change its password.';
 $s_warning_admin_directory_present = '<strong>Warning:</strong> "admin" directory should be removed, or access to it restricted.';
+$s_warning_host_header_injection_hazard = '<strong>Warning:</strong> "path" was not defined in config_inc.php. Leaving it empty is a security risk, as the path will be set based on headers from the HTTP request, exposing your system to Host Header Injection attacks.';
 $s_warning_change_setting = '<strong>Warning:</strong> "%1$s" is not set to its default value (%2$s).';
 $s_warning_security_hazard = 'This is a potential security hazard as it can expose sensitive information.';
-$s_warning_integrity_hazard = 'This will cause MantisBT to continue when errors occurs and may lead to system/data integrity issues.';
 $s_warning_debug_email = '<strong>Warning:</strong> "<code>debug_email</code>" is not set to <code>OFF</code>, all notification e-mails will be sent to "%1$s".';
 $s_error_database_no_schema_version = '<strong>Error:</strong> Your Database schema version is 0. This can happen either because the database is corrupt or the value of "database_version" could not be retrieved from the config table or the database structure is from an outdated version of MantisBT (pre 1.0.0).';
 $s_error_database_version_out_of_date_2 = '<strong>Warning:</strong> The database structure may be out of date. Please upgrade <a href="admin/install.php">here</a> before logging in.';
@@ -681,6 +682,7 @@ $s_create_new_account_title = 'Create New Account';
 $s_verify_password = 'Verify Password';
 $s_enabled = 'Enabled';
 $s_enabled_label = 'Enabled';
+$s_disabled = 'Disabled';
 $s_protected = 'Protected';
 $s_protected_label = 'Protected';
 $s_create_user_button = 'Create User';
@@ -718,6 +720,7 @@ $s_p = 'p';
 $s_date_created = 'Date Created';
 $s_last_visit = 'Last Visit';
 $s_last_visit_label = 'Last Visit:';
+$s_failed_login_count = 'Failed Logins';
 $s_edit_user_link = 'Edit User';
 $s_search_user_hint = 'Username, Real Name or E-mail';
 
@@ -789,6 +792,7 @@ $s_readonly_status = 'Status where an issue becomes read only';
 $s_reopen_status = 'Status to which a reopened issue is set';
 $s_reopen_resolution = 'Resolution to which a reopened issue is set';
 $s_limit_view_unless_threshold_option = 'View other users\' issues (if not set, access will be limited to issues reported, handled, or monitored by the user)';
+$s_export_issues = 'Export issues';
 
 # manage_config_revert_page
 $s_config_delete_sure = 'Are you sure you want to delete the settings for %1$s in project %2$s?';
@@ -964,6 +968,7 @@ $s_reset_password_msg2 = 'Reset Password resets the password to be blank.';
 $s_show_all_users = 'All';
 $s_users_unused = 'Unused';
 $s_users_new = 'New';
+$s_email_not_unique = 'Email address is associated with at least one other user account';
 
 # manage_user_reset.php
 $s_account_reset_msg = 'A confirmation request has been sent to the selected user\'s e-mail address. Using this, the user will be able to change their password.';
@@ -971,7 +976,6 @@ $s_account_reset_msg2 = 'Account password has been set to blank...';
 $s_account_unlock_msg = 'The account has been unlocked.';
 
 # manage_user_update.php
-$s_manage_user_protected_msg = 'Account protected; the \'Access Level\' and \'Enabled\' fields cannot be modified. Other fields were successfully updated.';
 $s_manage_user_updated_msg = 'Account successfully updated...';
 $s_email_user_updated_subject = 'Account updated';
 $s_email_user_updated_msg = 'Your account has been updated by an administrator. A list of these changes is provided below. You can update your account details and preferences at any time by visiting the following URL:';
@@ -1122,6 +1126,7 @@ $s_no_reponse_msg = 'You have seven days to complete the account confirmation pr
 
 # signup_page.php
 $s_signup_captcha_request_label = 'Enter the code as it is shown in the box on the right:';
+$s_signup_captcha_play = 'Play the captcha code\'s audio';
 $s_signup_captcha_refresh = 'Generate a new code';
 $s_signup_info = 'On completion of this form and verification of your answers, you will be sent a confirmation message to the e-mail address you specified.<br />Using the link provided in the e-mail, you will be able to activate your account. If you fail to do so within seven days, it may be purged.<br />You must specify a valid e-mail address in order to receive the account confirmation e-mail.';
 $s_signup_title = 'Signup';
@@ -1318,6 +1323,7 @@ $s_bytes = 'bytes';
 $s_kib = 'KiB';
 $s_attachment_missing = 'Attachment missing';
 $s_attachment_count = 'Attachment count';
+$s_bugnotes_count = 'Issue Notes count';
 $s_view_attachments_for_issue = 'View %1$d attachment(s) for issue #%2$d';
 $s_warning_update_custom_field_type = '<strong>Warning:</strong> Custom field "%1$s" already has stored values. Changing field type may cause errors and unexpected behaviour if existing values are not consistent with the field\'s new type. To proceed, click the button below';
 
@@ -1561,6 +1567,7 @@ $s_database_information = 'MantisBT Database Information';
 $s_path_information = 'MantisBT Path Information';
 $s_mantisbt_database_statistics = 'MantisBT Database Statistics';
 $s_php_version = 'PHP Version';
+$s_os_information = 'OS Information';
 $s_adodb_version = 'ADOdb Version';
 $s_database_driver = 'Database Driver';
 $s_database_version_description = 'Database Version, Description';
@@ -1616,6 +1623,7 @@ $MANTIS_ERROR[ERROR_PROTECTED_ACCOUNT] = 'This account is protected. You are not
 $MANTIS_ERROR[ERROR_ACCESS_DENIED] = 'Access Denied.';
 $MANTIS_ERROR[ERROR_UPLOAD_FAILURE] = 'File upload failed. File is not readable by MantisBT. Please check the project settings.';
 $MANTIS_ERROR[ERROR_FILE_TOO_BIG] = 'File upload failed. This is likely because the filesize was larger than is currently allowed by this PHP installation.';
+$MANTIS_ERROR[ERROR_FILE_NAME_TOO_LONG] = 'File name "%1$s" is too long.';
 $MANTIS_ERROR[ERROR_GPC_VAR_NOT_FOUND] = 'A required parameter to this page (%1$s) was not found.';
 $MANTIS_ERROR[ERROR_USER_NAME_NOT_UNIQUE] = 'That username is already being used. Please go back and select another one.';
 $MANTIS_ERROR[ERROR_USER_EMAIL_NOT_UNIQUE] = 'That email is already being used. Please go back and select another one.';
@@ -1670,7 +1678,6 @@ $MANTIS_ERROR[ERROR_LDAP_AUTH_FAILED] = 'LDAP Authentication Failed.';
 $MANTIS_ERROR[ERROR_LDAP_SERVER_CONNECT_FAILED] = 'LDAP Server Connection Failed.';
 $MANTIS_ERROR[ERROR_LDAP_UPDATE_FAILED] = 'LDAP Record Update has failed.';
 $MANTIS_ERROR[ERROR_LDAP_USER_NOT_FOUND] = 'LDAP User Record Not Found.';
-$MANTIS_ERROR[ERROR_LDAP_EXTENSION_NOT_LOADED] = 'LDAP Extension Not Loaded.';
 $MANTIS_ERROR[ERROR_LDAP_UNABLE_TO_SET_MIN_TLS] = 'Failed to set minimum TLS version on LDAP server.';
 $MANTIS_ERROR[ERROR_LDAP_UNABLE_TO_STARTTLS] = 'Cannot initiate StartTLS on LDAP server.';
 $MANTIS_ERROR[ERROR_DB_CONNECT_FAILED] = 'Database connection failed. Error received from database was #%1$d: %2$s.';
@@ -1678,10 +1685,10 @@ $MANTIS_ERROR[ERROR_DB_QUERY_FAILED] = 'Database query failed. Error received fr
 $MANTIS_ERROR[ERROR_DB_SELECT_FAILED] = 'Database selection failed. Error received from database was #%1$d: %2$s.';
 $MANTIS_ERROR[ERROR_DB_IDENTIFIER_TOO_LONG] = 'Database identifier "%1$s" is too long. Try reducing the size of g_db_table_prefix/suffix';
 $MANTIS_ERROR[ERROR_CATEGORY_DUPLICATE] = 'A category with that name already exists.';
-$MANTIS_ERROR[ERROR_CATEGORY_NO_ACTION] = 'No copy action was specified.';
+$MANTIS_ERROR[ERROR_NO_COPY_ACTION] = 'No copy action was specified.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND] = 'Category not found.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND_FOR_PROJECT] = 'Category "%1$s" not found for project "%2$s".';
-$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_DEFAULT] = 'This Category cannot be deleted, because it is defined as "Default Category For Moves".';
+$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_UPDATE_DEFAULT] = 'Operation cannot be completed, because Category "%1$s" is defined as Default For Moves in at least one project or globally.';
 $MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_HAS_ISSUES] = 'Category "%1$s" cannot be deleted, because it is associated with one or more issues.';
 $MANTIS_ERROR[ERROR_VERSION_DUPLICATE] = 'A version with that name already exists.';
 $MANTIS_ERROR[ERROR_VERSION_NOT_FOUND] = 'Version "%1$s" not found.';
@@ -1733,7 +1740,6 @@ $MANTIS_ERROR[ERROR_SESSION_VAR_NOT_FOUND] = 'Session variable "%1$s" not found.
 $MANTIS_ERROR[ERROR_SESSION_NOT_VALID] = 'Your session has become invalidated.';
 $MANTIS_ERROR[ERROR_FORM_TOKEN_INVALID] = 'Invalid form security token. This could be caused by a session timeout, or accidentally submitting the form twice.';
 $MANTIS_ERROR[ERROR_CRYPTO_MASTER_SALT_INVALID] = 'For security reasons MantisBT will not operate when $g_crypto_master_salt is not specified correctly in config_inc.php or is shorter than 16 characters long.';
-$MANTIS_ERROR[ERROR_CRYPTO_CAN_NOT_GENERATE_STRONG_RANDOMNESS] = 'Unable to find a source of strong randomness for cryptographic purposes.';
 $MANTIS_ERROR[ERROR_INVALID_REQUEST_METHOD] = 'This page cannot be accessed using this method.';
 $MANTIS_ERROR[ERROR_INVALID_SORT_FIELD] = 'Invalid sort field.';
 $MANTIS_ERROR[ERROR_INVALID_DATE_FORMAT] = 'Invalid date format.';
@@ -1747,6 +1753,8 @@ $MANTIS_ERROR[ERROR_SPAM_SUSPECTED] = 'You have reached the allowed activity lim
 $MANTIS_ERROR[ERROR_FIELD_TOO_LONG] = 'Field "%1$s" must be shorter or equal to %2$d characters long.';
 $MANTIS_ERROR[ERROR_API_TOKEN_NAME_NOT_UNIQUE] = 'API token name "%s" is already being used. Please go back and select another one.';
 $MANTIS_ERROR[ERROR_LOGFILE_NOT_WRITABLE] = 'The file specified in $g_log_destination "%s" is not writable.';
+$MANTIS_ERROR[ERROR_MONITOR_ACCESS_TOO_LOW] = 'Added user does not have sufficient access rights to monitor this issue.';
+$MANTIS_ERROR[ERROR_USER_TOKEN_NOT_FOUND] = 'User API token with id "%d" not found.';
 
 # dropzone.js - placeholders format is defined by the library
 $s_dropzone_default_message = 'Attach files by dragging & dropping, selecting or pasting them.';
@@ -1761,7 +1769,8 @@ $s_dropzone_remove_file = 'Remove file';
 $s_dropzone_remove_file_confirmation = '';
 $s_dropzone_max_files_exceeded = 'You cannot upload any more files.';
 $s_dropzone_not_supported = 'Dropzone.js does not support older browsers!';
-$s_dropzone_multiple_files_too_big = 'The following files:{{files}}exceed the maximum allowed file size ({{maxFilesize}} MiB)';
+$s_dropzone_multiple_files_too_big = 'The following files exceed the maximum allowed file size ({{maxFilesize}} MiB):{{files}}';
+$s_dropzone_multiple_filenames_too_long = 'The following filenames are too long (max {{maxFilenameLength}} characters):{{files}}';
 
 # Generic actions, short names
 $s_save = 'Save';

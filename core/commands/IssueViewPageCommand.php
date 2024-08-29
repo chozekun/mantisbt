@@ -33,11 +33,9 @@ require_api( 'relationship_api.php' );
 require_api( 'string_api.php' );
 require_api( 'user_api.php' );
 
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_account_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_enum_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_issue_api.php' );
-require_once( dirname( __FILE__ ) . '/../../api/soap/mc_project_api.php' );
+$t_soap_dir = dirname( __DIR__, 2 ) . '/api/soap/';
+require_once( $t_soap_dir . 'mc_api.php' );
+require_once( $t_soap_dir . 'mc_issue_api.php' );
 
 use Mantis\Exceptions\ClientException;
 
@@ -70,6 +68,8 @@ class IssueViewPageCommand extends Command {
 
 	/**
 	 * Validate the data.
+	 *
+	 * @throws ClientException
 	 */
 	function validate() {
 		$t_issue_id = $this->query( 'id' );
@@ -80,7 +80,9 @@ class IssueViewPageCommand extends Command {
 	/**
 	 * Process the command.
 	 *
-	 * @returns array Command response
+	 * @return array Command response
+	 *
+	 * @throws ClientException
 	 */
 	protected function process() {
 		$t_force_readonly = $this->option( 'force_readonly', false );
@@ -104,6 +106,8 @@ class IssueViewPageCommand extends Command {
 		# categories and handlers lists etc.
 		global $g_project_override;
 		$g_project_override = $t_project_id;
+
+		$t_date_format = config_get( 'normal_date_format' );
 
 		$t_issue_view = array();
 		$t_flags = array();
@@ -131,6 +135,17 @@ class IssueViewPageCommand extends Command {
 			in_array( 'target_version', $t_fields ) &&
 			access_has_bug_level( config_get( 'roadmap_view_threshold' ), $t_issue_id );
 
+		# Formatted version strings for display
+		$t_issue_view['product_version'] = isset( $t_issue['version'] )
+			? prepare_version_string( $t_project_id, $t_issue['version']['id'], false )
+			: '';
+		$t_issue_view['target_version'] = isset( $t_issue['target_version'] )
+			? prepare_version_string( $t_project_id, $t_issue['target_version']['id'], false )
+			: '';
+		$t_issue_view['fixed_in_version'] = isset( $t_issue['fixed_in_version'] )
+			? prepare_version_string( $t_project_id, $t_issue['fixed_in_version']['id'], false )
+			: '';
+
 		$t_issue_view['form_title'] = lang_get( 'bug_view_title' );
 
 		if( config_get_global( 'wiki_enable' ) == ON ) {
@@ -152,12 +167,12 @@ class IssueViewPageCommand extends Command {
 
 		$t_flags['created_at_show'] = in_array( 'date_submitted', $t_fields );
 		if( $t_flags['created_at_show'] ) {
-			$t_issue_view['created_at'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['created_at'] ) );
+			$t_issue_view['created_at'] = date( $t_date_format, strtotime( $t_issue['created_at'] ) );
 		}
 
 		$t_flags['updated_at_show'] = in_array( 'last_updated', $t_fields );
 		if( $t_flags['updated_at_show'] ) {
-			$t_issue_view['updated_at'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['updated_at'] ) );
+			$t_issue_view['updated_at'] = date( $t_date_format, strtotime( $t_issue['updated_at'] ) );
 		}
 
 		$t_flags['additional_information_show'] =
@@ -185,7 +200,7 @@ class IssueViewPageCommand extends Command {
 			$t_issue_view['overdue'] = bug_overdue_level( $t_issue_id );
 
 			if( isset( $t_issue['due_date'] ) ) {
-				$t_issue_view['due_date'] = date( config_get( 'normal_date_format' ), strtotime( $t_issue['due_date'] ) );
+				$t_issue_view['due_date'] = date( $t_date_format, strtotime( $t_issue['due_date'] ) );
 			} else {
 				$t_issue_view['due_date'] = '';
 			}
@@ -211,8 +226,8 @@ class IssueViewPageCommand extends Command {
 			access_has_bug_level( config_get( 'show_monitor_list_threshold' ), $t_issue_id );
 
 		if( $t_flags['monitor_show'] ) {
-			$t_flags['monitor_can_delete'] = access_has_bug_level( config_get( 'monitor_delete_others_bug_threshold' ), $t_issue_id ) ? true : false;
-			$t_flags['monitor_can_add'] = access_has_bug_level( config_get( 'monitor_add_others_bug_threshold' ), $t_issue_id ) ? true : false;
+			$t_flags['monitor_can_delete'] = access_has_bug_level( config_get( 'monitor_delete_others_bug_threshold' ), $t_issue_id );
+			$t_flags['monitor_can_add'] = access_has_bug_level( config_get( 'monitor_add_others_bug_threshold' ), $t_issue_id );
 		}
 
 		if( !$t_force_readonly && !$t_anonymous_user ) {

@@ -38,6 +38,7 @@
  * @ingroup Language
  * @file
  *
+ * @author Antonla
  * @author Christian List
  * @author Joedalton
  * @author Kaare
@@ -482,12 +483,10 @@ $s_log_page_time = 'Kørselstid';
 $s_log_page_caller = 'Kalder';
 $s_log_page_event = 'Hændelse';
 $s_please_report = 'Rapporter venligst dette til %1$s.';
-$s_warning_plain_password_authentication = '<strong>Advarsel:</strong> Almindelig kodeordsgodkendelse bruges, dette vil afsløre dine adgangskoder til administratorer.';
 $s_warning_default_administrator_account_present = '<strong>Advarsel:</strong> Du bør deaktivere standardkontoen \'administrator\' eller ændre dens adgangskode.';
 $s_warning_admin_directory_present = '<strong>Advarsel:</strong> Mappen »admin« skal fjernes, eller adgang til den begrænses.';
 $s_warning_change_setting = '<strong>Advarsel:</strong> »%1$s« er ikke sat til standardværdi (%2$s).';
 $s_warning_security_hazard = 'Dette er en potentiel sikkerhedsrisiko, da det kan afsløre sensitiv information.';
-$s_warning_integrity_hazard = 'Dette vil medføre at MantisBT fortsætter, når der opstår fejl, og det kan føre til system/data-integritetsproblemer.';
 $s_warning_debug_email = '<strong>Advarsel:</strong> <code>debug_email</code> er ikke sat til <code>OFF</code>, alle e-postmeddelelser vil blive sendt til »%1$s«.';
 $s_error_database_no_schema_version = '<strong>Fejl:</strong> Din databaseskemaversion er 0. Dette kan ske enten fordi databasen er ødelagt eller værdien af »database_version« kunne ikke hentes fra konfigurationstabellen eller databasestrukturen er fra en forældet version af MantisBT (før 1.0.0).';
 $s_error_database_version_out_of_date_2 = '<strong>Advarsel:</strong> Databasestrukturen kan være forældet. Opgrader venligst <a href="admin/install.php">her</a> før de logger på.';
@@ -535,18 +534,18 @@ $s_default_filter = 'Standardfilter';
 $s_create_filter_link = 'Opret permanent link';
 $s_create_short_link = 'Opret kort Link';
 $s_filter_permalink = 'Følgende er et permanent link til det konfigurerede filter:';
-$s_manage_users_link = 'Håndter brugere';
-$s_manage_projects_link = 'Håndter projekter';
-$s_manage_custom_field_link = 'Administrer brugerdefinerede felter';
-$s_manage_global_profiles_link = 'Administrer globale profiler';
-$s_manage_plugin_link = 'Håndter plugins';
+$s_manage_users_link = 'Brugere';
+$s_manage_projects_link = 'Projekter';
+$s_manage_custom_field_link = 'Brugerdefinerede felter';
+$s_manage_global_profiles_link = 'Globale profiler';
+$s_manage_plugin_link = 'Udvidelsesmoduler';
 $s_permissions_summary_report = 'Rapport over rettigheder';
-$s_manage_config_link = 'Administrer konfigurationen';
+$s_manage_config_link = 'Konfiguration';
 $s_manage_threshold_config = 'Tærskelværdier for arbejdsforløb';
 $s_manage_email_config = 'E-mail påmindelser';
 $s_manage_workflow_config = 'Overgange for arbejdsforløb';
 $s_manage_workflow_graph = 'Arbejdsforløbgraf';
-$s_manage_tags_link = 'Håndter tags';
+$s_manage_tags_link = 'Mærker';
 $s_create_new_account_link = 'Opret ny konto';
 $s_projects_link = 'Projekter';
 $s_documentation_link = 'Dokumentation';
@@ -733,7 +732,6 @@ $s_users_new = 'Ny';
 $s_account_reset_msg = 'En bekræftigelsesmeddelelse er blevet sendt til den valgte brugers e-mailadresse. Ved hjælp af den kan brugeren ændre sin adgangskode.';
 $s_account_reset_msg2 = 'Kontoens adgangskode nulstillet...';
 $s_account_unlock_msg = 'Kontoen er blevet låst op.';
-$s_manage_user_protected_msg = 'Beskyttet konto. Kontorettigheder og aktivering kan ikke ændres. Ellers er kontoen blevet opdateret...';
 $s_manage_user_updated_msg = 'Kontoen er blevet opdateret...';
 $s_email_user_updated_subject = 'Konto opdateret';
 $s_email_user_updated_msg = 'Din konto er blevet opdateret af en administrator. Nedenfor er der en liste over disse ændringer. Du kan opdatere dine kontooplysninger og indstillinger når som helst ved at besøge følgende Webadresse:';
@@ -1271,16 +1269,15 @@ $MANTIS_ERROR[ERROR_LDAP_AUTH_FAILED] = 'LDAP-godkendelse mislykkedes';
 $MANTIS_ERROR[ERROR_LDAP_SERVER_CONNECT_FAILED] = 'forbindelse til LDAP-server mislykkedes';
 $MANTIS_ERROR[ERROR_LDAP_UPDATE_FAILED] = 'LDAP Record Update mislykkedes.';
 $MANTIS_ERROR[ERROR_LDAP_USER_NOT_FOUND] = 'LDAP User Record ikke fundet.';
-$MANTIS_ERROR[ERROR_LDAP_EXTENSION_NOT_LOADED] = 'LDAP-udvidelse ikke indlæst.';
 $MANTIS_ERROR[ERROR_DB_CONNECT_FAILED] = 'Databaseforbindelsen mislykkedes. Fejl, der er modtaget fra databasen er #%1$d: %2$s.';
 $MANTIS_ERROR[ERROR_DB_QUERY_FAILED] = 'Database-forespørgslen mislykkedes. Fejl, der er modtaget fra databasen er #%1$d: %2$s for forespørgslen: %3$s.';
 $MANTIS_ERROR[ERROR_DB_SELECT_FAILED] = 'Valg af database mislykkedes. Fejl, der er modtaget fra databasen er #%1$d: %2$s.';
 $MANTIS_ERROR[ERROR_DB_IDENTIFIER_TOO_LONG] = 'Databaseidentifikatoren »%1$s« er for lang. Prøv at reducere størrelsen på g_db_table_prefix/suffix';
 $MANTIS_ERROR[ERROR_CATEGORY_DUPLICATE] = 'Denne kategori findes allerede.';
-$MANTIS_ERROR[ERROR_CATEGORY_NO_ACTION] = 'Ingen kopi-handling specificeret.';
+$MANTIS_ERROR[ERROR_NO_COPY_ACTION] = 'Ingen kopi-handling specificeret.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND] = 'Kategori ikke fundet.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND_FOR_PROJECT] = 'Kategorien "%1$s" ikke fundet for projektet "%2$s".';
-$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_DEFAULT] = 'Denne kategori kan ikke slettes, fordi den er defineret som "standardkategori for flytninger".';
+$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_UPDATE_DEFAULT] = 'Denne kategori kan ikke slettes, fordi den er defineret som "standardkategori for flytninger".';
 $MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_HAS_ISSUES] = 'Kategorien »%1$s« kan ikke slettes, da den er associeret med en eller flere fejlrapporter.';
 $MANTIS_ERROR[ERROR_VERSION_DUPLICATE] = 'Denne version findes allerede.';
 $MANTIS_ERROR[ERROR_VERSION_NOT_FOUND] = 'Version "%1$s" blev ikke fundet.';
@@ -1332,7 +1329,6 @@ $MANTIS_ERROR[ERROR_SESSION_VAR_NOT_FOUND] = 'Sessionsvariabel "%1$s" blev ikke 
 $MANTIS_ERROR[ERROR_SESSION_NOT_VALID] = 'Din session er blevet ugyldiggjort.';
 $MANTIS_ERROR[ERROR_FORM_TOKEN_INVALID] = 'Ugyldigt sikkerhedselement i formularen. Dette kan skyldes en timeout for sessionen, eller utilsigtet at sende formularen to gange.';
 $MANTIS_ERROR[ERROR_CRYPTO_MASTER_SALT_INVALID] = 'Af sikkerhedsårsager vil MantisBT ikke fungere når $g_crypto_master_salt ikke er korrekt angivet i config_inc.php eller er kortere end 16 tegn.';
-$MANTIS_ERROR[ERROR_CRYPTO_CAN_NOT_GENERATE_STRONG_RANDOMNESS] = 'Kunne ikke finde en kilde til stærk tilfældighed for kryptografiske formål.';
 $MANTIS_ERROR[ERROR_INVALID_REQUEST_METHOD] = 'Denne side kan ikke åbnes ved hjælp af denne metode.';
 $MANTIS_ERROR[ERROR_INVALID_SORT_FIELD] = 'Ugyldigt sorteringsfelt.';
 $MANTIS_ERROR[ERROR_INVALID_DATE_FORMAT] = 'Ugyldigt datoformat.';

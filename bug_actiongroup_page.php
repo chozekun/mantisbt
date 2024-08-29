@@ -59,6 +59,8 @@ require_api( 'string_api.php' );
 require_api( 'utility_api.php' );
 require_api( 'version_api.php' );
 
+require_css( 'status_config.php' );
+
 auth_ensure_user_authenticated();
 
 $f_action = gpc_get_string( 'action', '' );
@@ -92,7 +94,7 @@ foreach( $f_bug_arr as $t_key => $t_bug_id ) {
 	}
 
 	# Remove any issues the user doesn't have access to
-	if( !access_has_bug_level( $t_view_bug_threshold[$t_bug->project_id], $t_bug_id ) ) {
+	if( !access_has_bug_level( $t_view_bug_threshold[$t_bug->project_id], $t_bug_id, $t_user ) ) {
 		unset( $f_bug_arr[$t_key] );
 		continue;
 	}
@@ -346,7 +348,7 @@ if( $t_multiple_projects ) {
 					print_enum_string_option_list( 'status', config_get( 'bug_submit_status' ) );
 					break;
 				case 'UP_CATEGORY':
-					print_category_option_list();
+					print_category_option_list( 0, null, true );
 					break;
 				case 'VIEW_STATUS':
 					print_enum_string_option_list( 'view_state', config_get( 'default_bug_view_status' ) );

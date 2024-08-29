@@ -49,6 +49,8 @@ require_api( 'html_api.php' );
 require_api( 'lang_api.php' );
 require_api( 'print_api.php' );
 
+require_css( 'status_config.php' );
+
 $f_bug_id = gpc_get_int( 'bug_id' );
 
 $t_bug = bug_get( $f_bug_id, true );
@@ -181,7 +183,7 @@ layout_page_begin();
 $_GET['id'] = $f_bug_id;
 $t_show_page_header = false;
 $t_force_readonly = true;
-$t_mantis_dir = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
+$t_mantis_dir = __DIR__ . DIRECTORY_SEPARATOR;
 $t_file = __FILE__;
 
 define( 'BUG_VIEW_INC_ALLOW', true );

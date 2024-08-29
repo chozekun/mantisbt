@@ -132,6 +132,8 @@ function config_get( $p_option, $p_default = null, $p_user = null, $p_project = 
 
 			if( isset( $g_cache_config[$p_option] ) ) {
 				$t_found = false;
+				$t_value = '';
+
 				foreach( $t_users as $t_user ) {
 					foreach( $t_projects as $t_project ) {
 						if( isset( $g_cache_config[$p_option][$t_user][$t_project] ) ) {
@@ -295,7 +297,7 @@ function config_is_set( $p_option, $p_user = null, $p_project = null ) {
  * If the configuration option does not exist, an ERROR is triggered
  *
  * @param string  $p_option  Configuration option name.
- * @param string  $p_value   Configuration option value.
+ * @param string|array  $p_value   Configuration option value.
  * @param integer $p_user    A user identifier. Defaults to NO_USER.
  * @param integer $p_project A project identifier. Defaults to ALL_PROJECTS.
  * @param integer $p_access  Access level. Defaults to DEFAULT_ACCESS_LEVEL.
@@ -448,7 +450,7 @@ function config_can_set_in_database( $p_option ) {
  * @return boolean
  */
 function config_can_delete( $p_option ) {
-	return( strtolower( $p_option ) != 'database_version' );
+	return( strtolower( $p_option ?? '' ) != 'database_version' );
 }
 
 /**
@@ -527,7 +529,7 @@ function config_flush_cache( $p_option = '', $p_user = ALL_USERS, $p_project = A
 	if( '' !== $p_option ) {
 		unset( $GLOBALS['g_cache_config'][$p_option][$p_user][$p_project] );
 		unset( $GLOBALS['g_cache_config_access'][$p_option][$p_user][$p_project] );
-		unset( $GLOBALS['g_cache_config_eval'][$p_option] );
+		unset( $GLOBALS['g_cache_config_eval']['g_' . $p_option] );
 	} else {
 		unset( $GLOBALS['g_cache_config'] );
 		unset( $GLOBALS['g_cache_config_access'] );

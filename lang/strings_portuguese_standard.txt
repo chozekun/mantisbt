@@ -54,6 +54,7 @@
  * @author Mansil alfalb
  * @author McDutchie
  * @author Mmgseabra
+ * @author Urhixidur
  * @author Vitorvicentevalente
  * @author Waldir
  * @author Waldyrious
@@ -438,7 +439,7 @@ $s_resolution = 'Solução';
 $s_status = 'Estado';
 $s_duplicate_id = 'ID Duplicado';
 $s_os = 'Sistema Operativo';
-$s_platform = 'Computador (CPU, RAM, disco, etc)';
+$s_platform = 'Computador (CPU, RAM, disco, etc.)';
 $s_os_build = 'Versão do Sist. Operativo';
 $s_projection = 'Projeção';
 $s_eta = 'Estimado';
@@ -489,12 +490,10 @@ $s_log_page_time = 'Tempo de execução';
 $s_log_page_caller = 'Invocador';
 $s_log_page_event = 'Acontecimento';
 $s_please_report = 'Por favor, relate isto ao %1$s';
-$s_warning_plain_password_authentication = '<strong>Aviso:</strong> Autenticação com palavras-chave em claro está a ser usada. Os administradores ficarão a conhecer a sua palavra-chave.';
 $s_warning_default_administrator_account_present = '<strong>Aviso:</strong> Deve desativar a conta predefinida de \'administrador\' ou alterar a respetiva palavra-chave.';
 $s_warning_admin_directory_present = '<strong>Aviso:</strong> O diretório "admin" deve ser removido, ou ter o seu acesso restringido.';
 $s_warning_change_setting = '<strong>Aviso:</strong> "%1$s" não está definido ao seu valor por omissão (%2$s).';
 $s_warning_security_hazard = 'Este é um risco de segurança em potencial, pois pode expor informações confidenciais.';
-$s_warning_integrity_hazard = 'Isto fará com que o MantisBT continue quando houver erros e pode gerar problemas de integridade do sistema ou dos dados.';
 $s_warning_debug_email = '<strong>Aviso:</strong> "<code>debug_email</code>" não está definido para <code>OFF</code>, todas as notificações por correio eletrónico serão enviadas para "%1$s".';
 $s_error_database_no_schema_version = '<strong>Erro:</strong> A sua versão do modelo da base de dados é 0. Isto pode ocorrer porque a base de dados está corrompida ou o valor de "database_version" não pode ser recuperado da tabela de configuração, ou a estrutura da base de dados pertence a uma versão desatualizada do MantisBT (anterior à 1.0.0).';
 $s_error_database_version_out_of_date_2 = '<strong>Aviso:</strong> A estrutura da base de dados pode estar desatualizada. Por favor, atualize <a href="admin/install.php">aqui</a> antes de entrar.';
@@ -745,7 +744,6 @@ $s_users_new = 'Novo';
 $s_account_reset_msg = 'Um pedido de confirmação foi enviado para o email do utilizador. Através deste pedido, o utilizador poderá modificar a sua palavra-passe.';
 $s_account_reset_msg2 = 'Palavra-chave da conta definida para vazia...';
 $s_account_unlock_msg = 'A conta foi desbloqueada.';
-$s_manage_user_protected_msg = 'Conta protegida; os campos \'Nível de acesso\' e \'Ativa\' não podem ser modificados. Os outros campos foram atualizados com sucesso.';
 $s_manage_user_updated_msg = 'Conta atualizada com sucesso...';
 $s_email_user_updated_subject = 'Conta atualizada';
 $s_email_user_updated_msg = 'A sua conta foi atualizada por um administrador. Segue-se uma lista destas alterações. Pode atualizar os detalhes e preferências da sua conta em qualquer altura através do URL:';
@@ -1307,16 +1305,15 @@ $MANTIS_ERROR[ERROR_LDAP_AUTH_FAILED] = 'Falha na Autenticação LDAP.';
 $MANTIS_ERROR[ERROR_LDAP_SERVER_CONNECT_FAILED] = 'Falha na ligação ao servidor LDAP.';
 $MANTIS_ERROR[ERROR_LDAP_UPDATE_FAILED] = 'A atualização do Registo LDAP falhou.';
 $MANTIS_ERROR[ERROR_LDAP_USER_NOT_FOUND] = 'Registo de Utilizador LDAP Não Encontrado.';
-$MANTIS_ERROR[ERROR_LDAP_EXTENSION_NOT_LOADED] = 'Extensão LDAP Não Carregada.';
 $MANTIS_ERROR[ERROR_DB_CONNECT_FAILED] = 'Ligação à base de dados falhou. O erro recebido da base de dados foi #%1$d: %2$s.';
 $MANTIS_ERROR[ERROR_DB_QUERY_FAILED] = 'Query à base de dados falhou. Erro recebido da base de dados foi #%1$d: %2$s para a query: %3$s.';
 $MANTIS_ERROR[ERROR_DB_SELECT_FAILED] = 'Seleção da base de dados falhou. Erro recebido da base de dados foi #%1$d: %2$s.';
 $MANTIS_ERROR[ERROR_DB_IDENTIFIER_TOO_LONG] = 'O identificador da base de dados "%1$s" é demasiado longo. Tente reduzir o tamanho de g_db_table_prefix/suffix';
 $MANTIS_ERROR[ERROR_CATEGORY_DUPLICATE] = 'Já existe uma categoria com esse nome.';
-$MANTIS_ERROR[ERROR_CATEGORY_NO_ACTION] = 'Nenhuma ação de cópia foi especificada.';
+$MANTIS_ERROR[ERROR_NO_COPY_ACTION] = 'Nenhuma ação de cópia foi especificada.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND] = 'Categoria não encontrada.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND_FOR_PROJECT] = 'Categoria "%1$s" não encontrada para o projeto "%2$s".';
-$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_DEFAULT] = 'Esta categoria não pode ser eliminada, porque está definida como "categoria padrão para movimentos".';
+$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_UPDATE_DEFAULT] = 'Esta categoria não pode ser eliminada, porque está definida como "categoria padrão para movimentos".';
 $MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_HAS_ISSUES] = 'A categoria "%1$s" não pode ser apagada, porque está associada com uma ou mais incidências.';
 $MANTIS_ERROR[ERROR_VERSION_DUPLICATE] = 'Já existe uma versão com esse nome.';
 $MANTIS_ERROR[ERROR_VERSION_NOT_FOUND] = 'Versão "%1$s" não encontrada.';
@@ -1369,7 +1366,6 @@ $MANTIS_ERROR[ERROR_SESSION_VAR_NOT_FOUND] = 'Variável de sessão "%1$s" não e
 $MANTIS_ERROR[ERROR_SESSION_NOT_VALID] = 'A sua sessão tornou-se inválida.';
 $MANTIS_ERROR[ERROR_FORM_TOKEN_INVALID] = 'Token de segurança de formulário inválido. Isto pode ser causado por um timeout da sessão ou pelo envio acidental do formulário em duplicado.';
 $MANTIS_ERROR[ERROR_CRYPTO_MASTER_SALT_INVALID] = 'Por razões de segurança, o MantisBT não funcionará quando o $g_crypto_master_salt não for especificado corretamente em config_inc.php ou for menor que 16 caracteres.';
-$MANTIS_ERROR[ERROR_CRYPTO_CAN_NOT_GENERATE_STRONG_RANDOMNESS] = 'Não foi possível encontrar uma fonte fortemente aleatória para fins criptográficos.';
 $MANTIS_ERROR[ERROR_INVALID_REQUEST_METHOD] = 'Esta página não pode ser acedida por este método.';
 $MANTIS_ERROR[ERROR_INVALID_SORT_FIELD] = 'Campo de ordenação inválido.';
 $MANTIS_ERROR[ERROR_INVALID_DATE_FORMAT] = 'Formato de data inválido.';

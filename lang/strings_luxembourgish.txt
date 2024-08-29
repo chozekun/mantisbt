@@ -41,6 +41,7 @@
  * @author Les Meloures
  * @author Robby
  * @author Soued031
+ * @author Volvox
  */
 
 $s_actiongroup_menu_copy = 'Kopéieren';
@@ -171,6 +172,7 @@ $s_sponsor = 'Sponsor';
 $s_sponsor_verb = 'sponsoren';
 $s_sponsor_show = 'All weisen';
 $s_account_updated_msg = 'Äre Kont gouf aktualiséiert ...';
+$s_email_updated = 'E-Mail-Adress erfollegräich aktualiséiert';
 $s_realname_updated = 'Richtegen Numm aktualiséiert';
 $s_password_updated = 'Passwuert aktualiséiert';
 $s_new_bug_button = 'Neie Bug';
@@ -277,7 +279,7 @@ $s_name = 'Numm';
 $s_delete_version_button = 'Versioun läschen';
 $s_edit_project_version_title = 'Versioun vum Projet änneren';
 $s_update_version_button = 'Versioun aktualiséieren';
-$s_obsolete = 'Vereelst';
+$s_obsolete = 'Vereelzt';
 $s_notify_user = 'Benotzer vun dëser Ännerung informéieren';
 $s_edit_user_title = 'Benotzer änneren';
 $s_reset_password_button = 'Passwuert zrécksetzen';
@@ -356,7 +358,7 @@ $s_filter_resolved = 'Geléist';
 $s_bytes = 'Byten';
 $s_kib = 'KiB';
 $s_phpmailer_language = 'lb';
-$s_roadmap_empty = 'Keng Informatioun iwwer en Zäitplang disponibel';
+$s_roadmap_empty = 'Keng Informatiounen iwwer en Zäitplang disponibel';
 $s_replace_relationship_button = 'Ersetzen';
 $s_create_child_bug_button = 'Clonen';
 $s_with = 'mat';
@@ -383,6 +385,7 @@ $s_time_tracking_cost_per_hour_label = 'Käschte pro Stonn:';
 $s_time_tracking_stopwatch_start = 'Ufänken';
 $s_time_tracking_stopwatch_stop = 'Ophalen';
 $s_time_tracking_stopwatch_reset = 'Zrécksetzen';
+$s_csv_columns_title = 'CSV-Kolonnen';
 $s_view_account_title = 'Benotzerinformatioun';
 $s_database_information = 'Informatioun vun der MantisBT Datebank';
 $s_php_version = 'PHP Versioun';
@@ -405,6 +408,7 @@ $MANTIS_ERROR[ERROR_SQL] = 'SQL-Feeler entdeckt.';
 $MANTIS_ERROR[ERROR_DUPLICATE_PROJECT] = 'Et gëtt schonn e ¨Projet mat deem Numm.';
 $MANTIS_ERROR[ERROR_INVALID_FIELD_VALUE] = 'Net valabele Wäert fir \'%1$s\'';
 $MANTIS_ERROR[ERROR_PROTECTED_ACCOUNT] = 'Dëse Benotzerkont ass gespaart. Dir däerft déi ugefroten Operatioun net maache bis d\'Spär um Benotzerkont opgehuewen ass.';
+$MANTIS_ERROR[ERROR_FILE_NAME_TOO_LONG] = 'Numm vum Fichier "%1$s" ass ze laang.';
 $MANTIS_ERROR[ERROR_BUGNOTE_NOT_FOUND] = 'Notiz net fonnt';
 $MANTIS_ERROR[ERROR_PROJECT_NOT_FOUND] = 'Projet "%1$s" net fonnt.';
 $MANTIS_ERROR[ERROR_USER_BY_NAME_NOT_FOUND] = 'Benotzer mam Numm "%1$s" net fonnt.';
@@ -433,7 +437,7 @@ $MANTIS_ERROR[ERROR_INVALID_DATE_FORMAT] = 'Net valabelen Datumsformat';
 $MANTIS_ERROR[ERROR_UPDATING_TIMEZONE] = 'D\'Zäitzon konnt net aktualiséiert ginn-';
 $s_dropzone_invalid_file_type = 'Dir kënnt keng Fichiere vun dësem Typ eroplueden.';
 $s_dropzone_cancel_upload = 'Eroplueden ofbriechen';
-$s_dropzone_cancel_upload_confirmation = 'Sidd Dir sécher datt Dir d\'Eroplueden ofbrieche wëllt?';
+$s_dropzone_cancel_upload_confirmation = 'Sidd Dir sécher, datt Dir d\'Eroplueden ofbrieche wëllt?';
 $s_dropzone_remove_file = 'Fichier ewechhuelen';
 $s_dropzone_max_files_exceeded = 'Dir kënnt net méi Fichieren eroplueden.';
 $s_dropzone_not_supported = 'Dropzone.js ënnertstëtzt keng al Browseren!';

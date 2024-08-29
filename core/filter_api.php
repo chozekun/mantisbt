@@ -84,11 +84,18 @@ require_api( 'utility_api.php' );
 require_api( 'version_api.php' );
 require_api( 'filter_form_api.php' );
 
-# @global array $g_filter	Filter array for the filter in use through view_all_bug_page
-# This gets initialized on filter load
-# @TODO cproensa	We should move towards not relying on this variable, as we reuse filter logic
-# to allow operating on other filter different that the one in use for view_all_bug_page.
-# For example: manage and edit stored filters.
+use Mantis\Exceptions\ClientException;
+
+/**
+ * Filter array for the filter in use through view_all_bug_page.
+ *
+ * This gets initialized on filter load to allow operating on other filter than
+ * the one in use for view_all_bug_page. For example: manage and edit stored filters.
+ *
+ * @TODO cproensa We should move towards not relying on this variable, as we reuse filter logic.
+ *
+ * @global array $g_filter
+ */
 $g_filter = null;
 
 
@@ -97,12 +104,16 @@ $g_filter = null;
 # ==========================================================================
 # We cache filter requests to reduce the number of SQL queries
 
-# @global array $g_cache_filter_db_rows
-# indexed by filter_id, contains the filter rows as read from db table
+/**
+ * Indexed by filter_id, contains the filter rows as read from db table.
+ * @global array $g_cache_filter_db_rows
+ */
 $g_cache_filter_db_rows = array();
 
-# @global array $g_cache_filter_subquery
-# indexed by a hash of the filter array, contains a prebuilt BugFilterQuery object
+/**
+ * Indexed by a hash of the filter array, contains a prebuilt BugFilterQuery object.
+ * @global array $g_cache_filter_subquery
+ */
 $g_cache_filter_subquery = array();
 
 /**
@@ -168,6 +179,10 @@ function filter_get_url( array $p_custom_filter ) {
 		}
 
 		$t_query[] = filter_encode_field_and_value( FILTER_PROPERTY_PROJECT_ID, $t_project_id );
+	}
+
+	if( ! filter_field_is_any( $p_custom_filter[FILTER_PROPERTY_PROJECTION] ) ) {
+		$t_query[] = filter_encode_field_and_value( FILTER_PROPERTY_PROJECTION, $p_custom_filter[FILTER_PROPERTY_PROJECTION] );
 	}
 
 	if( !filter_field_is_any( $p_custom_filter[FILTER_PROPERTY_SEARCH] ) ) {
@@ -721,7 +736,8 @@ function filter_ensure_valid_filter( array $p_filter_arr ) {
 		FILTER_PROPERTY_PLATFORM => 'string',
 		FILTER_PROPERTY_OS => 'string',
 		FILTER_PROPERTY_OS_BUILD => 'string',
-		FILTER_PROPERTY_PROJECT_ID => 'int'
+		FILTER_PROPERTY_PROJECT_ID => 'int',
+		FILTER_PROPERTY_PROJECTION => 'int'
 	);
 	foreach( $t_array_values_list as $t_multi_field_name => $t_multi_field_type ) {
 		if( !is_array( $p_filter_arr[$t_multi_field_name] ) ) {
@@ -867,6 +883,7 @@ function filter_get_default_array( $p_view_type = null ) {
 		FILTER_PROPERTY_REPORTER_ID => $t_meta_filter_any_array,
 		FILTER_PROPERTY_HANDLER_ID => $t_meta_filter_any_array,
 		FILTER_PROPERTY_PROJECT_ID => array( META_FILTER_CURRENT ),
+		FILTER_PROPERTY_PROJECTION => $t_meta_filter_any_array,
 		FILTER_PROPERTY_RESOLUTION => $t_meta_filter_any_array,
 		FILTER_PROPERTY_BUILD => $t_meta_filter_any_array,
 		FILTER_PROPERTY_VERSION => $t_meta_filter_any_array,
@@ -1265,10 +1282,11 @@ function filter_draw_selection_area() {
 
 							if( access_has_project_level( config_get( 'create_permalink_threshold' ) ) ) {
 								# Add CSRF protection, see #22702
-								$t_permalink_url = urlencode( filter_get_url( $t_filter ) )
+								$t_permalink_url = 'permalink_page.php?filter='
+									. filter_temporary_set( $t_filter )
 									. form_security_param( 'permalink' );
 								echo '<li>';
-								echo '<a href="permalink_page.php?url=' . $t_permalink_url . '">';
+								echo '<a href="' . $t_permalink_url . '">';
 								print_icon( 'fa-link', 'ace-icon' );
 								echo '&#160;&#160;' . lang_get( 'create_filter_link' );
 								echo '</a>';
@@ -1623,7 +1641,7 @@ function filter_db_get_filter_string( $p_filter_id, $p_user_id = null ) {
  * get current filter for given project and user
  * @param integer $p_project_id A project identifier.
  * @param integer $p_user_id    A valid user identifier.
- * @return integer
+ * @return integer|null
  */
 function filter_db_get_project_current( $p_project_id = null, $p_user_id = null ) {
 	if( null === $p_project_id ) {
@@ -2004,6 +2022,7 @@ function filter_gpc_get( array $p_filter = null ) {
 	$f_reporter_id = gpc_get( FILTER_PROPERTY_REPORTER_ID, $t_filter[FILTER_PROPERTY_REPORTER_ID] );
 	$f_handler_id = gpc_get( FILTER_PROPERTY_HANDLER_ID, $t_filter[FILTER_PROPERTY_HANDLER_ID] );
 	$f_project_id = gpc_get( FILTER_PROPERTY_PROJECT_ID, $t_filter[FILTER_PROPERTY_PROJECT_ID] );
+	$f_projection = gpc_get( FILTER_PROPERTY_PROJECTION, $t_filter[FILTER_PROPERTY_PROJECTION] );
 	$f_show_resolution = gpc_get( FILTER_PROPERTY_RESOLUTION, $t_filter[FILTER_PROPERTY_RESOLUTION] );
 	$f_show_build = gpc_get( FILTER_PROPERTY_BUILD, $t_filter[FILTER_PROPERTY_BUILD] );
 	$f_show_version = gpc_get( FILTER_PROPERTY_VERSION, $t_filter[FILTER_PROPERTY_VERSION] );
@@ -2242,6 +2261,7 @@ function filter_gpc_get( array $p_filter = null ) {
 	$t_filter_input[FILTER_PROPERTY_REPORTER_ID] 			= $f_reporter_id;
 	$t_filter_input[FILTER_PROPERTY_HANDLER_ID] 				= $f_handler_id;
 	$t_filter_input[FILTER_PROPERTY_PROJECT_ID] 				= $f_project_id;
+	$t_filter_input[FILTER_PROPERTY_PROJECTION] 				= $f_projection;
 	$t_filter_input[FILTER_PROPERTY_SORT_FIELD_NAME] 		= $f_sort;
 	$t_filter_input[FILTER_PROPERTY_SORT_DIRECTION] 			= $f_dir;
 	$t_filter_input[FILTER_PROPERTY_FILTER_BY_DATE_SUBMITTED] 			= $f_do_filter_by_date;
@@ -2306,8 +2326,13 @@ function filter_gpc_get( array $p_filter = null ) {
 function filter_get_visible_sort_properties_array( array $p_filter, $p_columns_target = COLUMNS_TARGET_VIEW_PAGE ) {
 	# get visible columns
 	$t_visible_columns = helper_get_columns_to_view( $p_columns_target );
-	# filter out those that ar not sortable
+	# filter out those that are not sortable
 	$t_visible_columns = array_filter( $t_visible_columns, 'column_is_sortable' );
+
+	# Special handling for overdue column, which is equivalent to sorting by due_date
+	if( in_array( 'overdue', $t_visible_columns ) & !in_array( 'due_date', $t_visible_columns ) ) {
+		$t_visible_columns[] = 'due_date';
+	}
 
 	$t_sort_fields = explode( ',', $p_filter[FILTER_PROPERTY_SORT_FIELD_NAME] );
 	$t_dir_fields = explode( ',', $p_filter[FILTER_PROPERTY_SORT_DIRECTION] );
@@ -2502,17 +2527,20 @@ function filter_get_included_projects( array $p_filter, $p_project_id = null, $p
 }
 
 /**
- * Returns a filter array structure for the given filter_id
+ * Returns a filter array structure for the given filter_id.
+ *
  * A default value can be provided to be used when the filter_id doesn't exists
- * or is not accessible
+ * or is not accessible.
  *
- *  You may pass in any array as a default (including null) but if
- *  you pass in *no* default then an error will be triggered if the filter
- *  cannot be found
+ * You may pass in any array as a default (including null) but if
+ * you pass in *no* default then an error will be triggered if the filter
+ * cannot be found.
  *
- * @param integer $p_filter_id Filter id
- * @param array $p_default     A filter array to return when id is not found
- * @return array	A filter array
+ * @param integer $p_filter_id Filter id.
+ * @param array   $p_default   A filter array to return when id is not found.
+ *
+ * @return array A filter array
+ * @throws ClientException
  */
 function filter_get( $p_filter_id, array $p_default = null ) {
 	# if no default was provided, we will trigger an error if not found
@@ -2523,14 +2551,17 @@ function filter_get( $p_filter_id, array $p_default = null ) {
 	# If value is false, it either doesn't exists or is not accessible
 	if( !$t_filter_string ) {
 		if( $t_trigger_error ) {
-			error_parameters( $p_filter_id );
-			trigger_error( ERROR_FILTER_NOT_FOUND, ERROR );
+			throw new ClientException(
+				"Filter id '$p_filter_id' not found",
+				ERROR_FILTER_NOT_FOUND,
+				[$p_filter_id]
+			);
 		} else {
 			return $p_default;
 		}
 	}
 	$t_filter = filter_deserialize( $t_filter_string );
-	# If the unserialez data is not an array, the some error happened, eg, invalid format
+	# If the unserialized data is not an array, then some error happened, eg, invalid format
 	if( !is_array( $t_filter ) ) {
 		# Don't throw error, otherwise the user could not recover navigation easily
 		return filter_get_default();

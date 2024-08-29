@@ -53,9 +53,10 @@ form_security_validate( 'manage_proj_cat_update' );
 
 auth_reauthenticate();
 
-$f_category_id		= gpc_get_int( 'category_id' );
-$f_name				= trim( gpc_get_string( 'name' ) );
-$f_assigned_to		= gpc_get_int( 'assigned_to', 0 );
+$f_category_id     = gpc_get_int( 'category_id' );
+$f_name            = trim( gpc_get_string( 'name' ) );
+$f_assigned_to     = gpc_get_int( 'assigned_to', 0 );
+$f_status          = gpc_get_bool( 'status', CATEGORY_STATUS_DISABLED );
 
 if( is_blank( $f_name ) ) {
 	error_parameters( 'name' );
@@ -73,17 +74,14 @@ if( mb_strtolower( $f_name ) != mb_strtolower( $t_old_name ) ) {
 	category_ensure_unique( $t_project_id, $f_name );
 }
 
-category_update( $f_category_id, $f_name, $f_assigned_to );
+category_update( $f_category_id, $f_name, $f_assigned_to, $f_status );
 
 form_security_purge( 'manage_proj_cat_update' );
 
 if( $t_project_id == ALL_PROJECTS ) {
 	$t_redirect_url = 'manage_proj_page.php';
 } else {
-	$t_redirect_url = 'manage_proj_edit_page.php?project_id=' . $t_project_id;
+	$t_redirect_url = 'manage_proj_edit_page.php?project_id=' . $t_project_id . '#categories';
 }
 
-layout_page_header( null, $t_redirect_url );
-layout_page_begin( 'manage_overview_page.php' );
-html_operation_successful( $t_redirect_url );
-layout_page_end();
+print_header_redirect( $t_redirect_url );

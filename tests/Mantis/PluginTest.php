@@ -31,7 +31,7 @@ require_once 'MantisCoreBase.php';
  * @package Tests
  * @subpackage String
  */
-class MantisPluginTest extends MantisCoreBase {
+class PluginTest extends MantisCoreBase {
 
 	const MANTISCORE = 'MantisCore';
 
@@ -55,7 +55,7 @@ class MantisPluginTest extends MantisCoreBase {
 	/**
 	 * Tests setup.
 	 */
-	protected function setUp() {
+	protected function setUp(): void {
 		plugin_register(self::MANTISCORE);
 	}
 

@@ -48,7 +48,7 @@ class AttachmentTest extends SoapBase {
 	 * @return void
 	 */
 	public function testAttachmentIsAdded() {
-		$t_issue_to_add = $this->getIssueToAdd( 'AttachmentTest.testAttachmentIsAdded' );
+		$t_issue_to_add = $this->getIssueToAdd();
 
 		$t_attachment_contents = 'Attachment contents.';
 
@@ -90,7 +90,7 @@ class AttachmentTest extends SoapBase {
 				-1 );
 			$this->fail( 'Should have failed.' );
 		} catch ( SoapFault $e ) {
-			$this->assertRegexp( '/Unable to find an attachment/', $e->getMessage() );
+			$this->assertMatchesRegularExpression( '/Unable to find an attachment/', $e->getMessage() );
 		}
 	}
 
@@ -153,7 +153,7 @@ class AttachmentTest extends SoapBase {
 				-1 );
 			$this->fail( 'Should have failed.' );
 		} catch( SoapFault $e ) {
-			$this->assertRegexp( '/Unable to find an attachment/', $e->getMessage() );
+			$this->assertMatchesRegularExpression( '/Unable to find an attachment/', $e->getMessage() );
 		}
 	}
 
@@ -173,7 +173,7 @@ class AttachmentTest extends SoapBase {
 	 * Tear Down: Remove project attachments added by test
 	 * @return void
 	 */
-	protected function tearDown() {
+	protected function tearDown(): void {
 		SoapBase::tearDown();
 
 		foreach( $this->projectAttachmentsToDelete as $t_project_attachment_id ) {

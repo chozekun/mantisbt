@@ -52,7 +52,7 @@ class IssueDeleteCommand extends Command {
 			throw new ClientException(
 				"Issue '" . $this->id . "' does not exist.",
 				ERROR_BUG_NOT_FOUND,
-				$this->id
+				[ $this->id ]
 			);
 		}
 
@@ -70,11 +70,12 @@ class IssueDeleteCommand extends Command {
  	/**
 	 * Process the command.
 	 *
-	 * @returns array Command response
+	 * @return array Command response
 	 */
 	protected function process() {
 		log_event( LOG_WEBSERVICE, "deleting issue '" . $this->id . "'" );
 		bug_delete( $this->id );
+		return [];
 	}
 }
 

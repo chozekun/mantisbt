@@ -31,27 +31,6 @@
 require_api( 'database_api.php' );
 
 /**
- * Checks a PHP version number against the version of PHP currently in use
- * @param string $p_version Version string to compare.
- * @return boolean true if the PHP version in use is equal to or greater than the supplied version string
- */
-function check_php_version( $p_version ) {
-	if( $p_version == PHP_MIN_VERSION ) {
-		return true;
-	} else {
-		if( function_exists( 'version_compare' ) ) {
-			if( version_compare( phpversion(), PHP_MIN_VERSION, '>=' ) ) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-}
-
-/**
  * Legacy pre-1.2 date function used for upgrading from datetime to integer
  * representation of dates in the database.
  * @return string Formatted date representing unixtime(0) + 1 second, ready for database insertion
@@ -866,4 +845,21 @@ function install_print_unserialize_errors_csv( $p_table, $p_data ) {
 		Download errors list as CSV
 	</a>
 <?php
+}
+
+/**
+ * Set existing categories' status to new default 1.
+ *
+ * Prior to 2.27.0, categories.status column was defaulted to 0. With the
+ * implementation of #31017, status == 0 means disabled, so we need to update
+ * all existing categories to prevent regressions.
+ *
+ * @return integer
+ */
+function install_category_status_default() {
+	$t_update_query = new DbQuery(
+		'UPDATE {category} SET status = 1 WHERE status = 0'
+	);
+
+	return $t_update_query->execute() ? 2 : 1;
 }

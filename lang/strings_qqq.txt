@@ -38,6 +38,7 @@
  * @ingroup Language
  * @file
  *
+ * @author Ajeje Brazorf
  * @author Amdei
  * @author Amire80
  * @author Ayonik
@@ -49,6 +50,7 @@
  * @author Fryed-peach
  * @author Hamilton Abreu
  * @author Jeromedl
+ * @author Jon Harald Søby
  * @author Kingu
  * @author Liuxinyu970226
  * @author Lloffiwr
@@ -72,6 +74,7 @@
  * @author Vuh
  * @author Waldir
  * @author Waldyrious
+ * @author Zexmax
  */
 
 $s_directionality = '{{Optional}}
@@ -113,7 +116,8 @@ $s_global_categories = '{{Identical|Global category}}';
 $s_opensearch_id_short = '{{Identical|ID}}';
 $s_opensearch_text_short = '{{Identical|Text}}';
 $s_select_option = '{{Identical|Select}}';
-$s_view_status_bugs_conf_msg = 'Something to do with public vs. private bugs...';
+$s_view_status_bugs_conf_msg = 'en: Something to do with public vs. private bugs...
+cs: Nešto u vezi sa javnim i privatnim greškama...';
 $s_category_group_bugs_button = '{{Identical|Update category}}';
 $s_login_cookies_disabled = 'J\'ai mis "cookies" au lieu de "témoins" car c\'est le terme utilisé dans les paramètres des navigateurs (firefox, chrome).';
 $s_prefix_for_deleted_users = '{{Identical|User}}';
@@ -482,6 +486,7 @@ $s_save = '{{Identical|Save}}';
 $s_reset = '{{Identical|Reset}}';
 $s_load = '{{Identical|Load}}';
 $s_edit = '{{Identical|Edit}}';
+$s_submit = '{{Identical|Submit}}';
 $s_update = '{{Identical|Update}}';
 $s_delete = '{{Identical|Delete}}';
 $s_print = '{{Identical|Print}}';

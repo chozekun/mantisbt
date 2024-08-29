@@ -29,8 +29,17 @@ use Mantis\Exceptions\ClientException;
 class IssueFileGetCommand extends Command {
 	/**
 	 * The issue id.
+	 *
+	 * @var int
 	 */
 	private $issue_id;
+
+	/**
+	 * The user id.
+	 *
+	 * @var int
+	 */
+	private $user_id;
 
 	/**
 	 * Constructor
@@ -51,7 +60,7 @@ class IssueFileGetCommand extends Command {
 	/**
 	 * Process the command.
 	 *
-	 * @returns array Command response
+	 * @return array Command response
 	 */
 	protected function process() {
 		$t_issue = bug_get( $this->issue_id, true );

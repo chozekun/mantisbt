@@ -88,14 +88,18 @@ function helper_alternate_class( $p_index = null, $p_odd_class = 'row-1', $p_eve
  * becomes array('k1'=>array('a'=>1,'b'=>3),'k2'=>array('a'=>2,'b'=>4))
  *
  * @param array $p_array The array to transpose.
+ *
  * @return array|mixed transposed array or $p_array if not 2-dimensional array
+ * @throws ClientException
  */
 function helper_array_transpose( array $p_array ) {
 	$t_out = array();
 	foreach( $p_array as $t_key => $t_sub ) {
 		if( !is_array( $t_sub ) ) {
-			# This function can only handle bidimensional arrays
-			trigger_error( ERROR_GENERIC, ERROR );
+			throw new ClientException(
+				__FUNCTION__ . " can only handle bidimensional arrays",
+				ERROR_GENERIC
+			);
 		}
 
 		foreach( $t_sub as $t_subkey => $t_value ) {
@@ -772,7 +776,15 @@ function helper_generate_cache_key( array $p_runtime_attrs = [], $p_custom_strin
  * @return integer view state id
  * @throws ClientException if view state is invalid or array is empty.
  */
-function helper_parse_view_state( array $p_view_state ) {
+function helper_parse_view_state( $p_view_state ) {
+	if( ! is_array( $p_view_state ) ) {
+		throw new ClientException(
+			"Invalid view state",
+			ERROR_INVALID_FIELD_VALUE,
+			array( lang_get( 'bugnote_view_state' ) )
+		);
+	}
+
 	$t_view_state_enum = config_get( 'view_state_enum_string' );
 
 	$t_view_state_id = VS_PUBLIC;
@@ -783,7 +795,8 @@ function helper_parse_view_state( array $p_view_state ) {
 			throw new ClientException(
 				sprintf( "Invalid view state id '%d'.", $t_view_state_id ),
 				ERROR_INVALID_FIELD_VALUE,
-				array( lang_get( 'view_state' ) ) );
+				array( lang_get( 'bugnote_view_state' ) )
+			);
 		}
 	} else if( isset( $p_view_state['name' ] ) ) {
 		$t_enum_by_labels = MantisEnum::getAssocArrayIndexedByLabels( $t_view_state_enum );
@@ -792,14 +805,17 @@ function helper_parse_view_state( array $p_view_state ) {
 			throw new ClientException(
 				sprintf( "Invalid view state id '%d'.", $t_view_state_id ),
 				ERROR_INVALID_FIELD_VALUE,
-				array( lang_get( 'view_state' ) ) );
+				array( lang_get( 'bugnote_view_state' ) )
+			);
 		}
 
 		$t_view_state_id = $t_enum_by_labels[$t_name];
 	} else {
 		throw new ClientException(
 			"Empty view state",
-			ERROR_EMPTY_FIELD );
+			ERROR_EMPTY_FIELD,
+			array( lang_get( 'bugnote_view_state' ) )
+		);
 	}
 
 	return $t_view_state_id;
@@ -841,4 +857,51 @@ function helper_parse_id( $p_id, $p_field_name ) {
  */
 function helper_parse_issue_id( $p_issue_id, $p_field_name = 'issue_id' ) {
 	return helper_parse_id( $p_issue_id, $p_field_name );
+}
+
+/**
+ * Return a link's attributes based on Mantis Config.
+ *
+ * Depending on $p_return_array parameter, return value will either be
+ * - an associative array with attribute => value pairs
+ *   e.g. ['rel'=>'noopener', target=>'_blank'], or
+ * - a string ready to be added to an html <a> tag,
+ *   e.g. ' rel="noopener" target="_blank"'
+ *
+ * @param bool $p_return_array true to return an array (default), false for string
+ * @return array|string
+ *
+ * @see $g_html_make_links
+ */
+function helper_get_link_attributes( $p_return_array = true ) {
+	$t_html_make_links = config_get( 'html_make_links' );
+
+	$t_attributes = array();
+	if( $t_html_make_links ) {
+		# Link target
+		if( $t_html_make_links & LINKS_NEW_WINDOW ) {
+			$t_attributes['target'] = '_blank';
+		}
+
+		# Link relation type
+		if( $t_html_make_links & ( LINKS_NOOPENER | LINKS_NOREFERRER ) ) {
+			if( $t_html_make_links & LINKS_NOREFERRER ) {
+				$t_attributes['rel'] = 'noreferrer';
+				# noreferrer implies noopener, so no need to set the latter
+			}
+			elseif( $t_html_make_links & LINKS_NOOPENER ) {
+				$t_attributes['rel'] = 'noopener';
+			}
+		}
+	}
+
+	if( $p_return_array ) {
+		return $t_attributes;
+	}
+
+	$t_string = '';
+	foreach( $t_attributes as $t_attr => $t_value ) {
+		$t_string .= " $t_attr=\"$t_value\"";
+	}
+	return $t_string;
 }

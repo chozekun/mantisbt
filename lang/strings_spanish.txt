@@ -38,17 +38,23 @@
  * @ingroup Language
  * @file
  *
+ * @author AnupamM
  * @author Armando-Martin
+ * @author Biancailin
  * @author Bithunter
  * @author Ciencia Al Poder
  * @author Cproensa
  * @author Crazymadlover
  * @author Dalton2
+ * @author Davit
  * @author Dgstranz
+ * @author DiegoAmbrocio
  * @author Dtamajon
+ * @author Eulalio
  * @author Fitoschido
  * @author Geryescalier
  * @author Guidored
+ * @author Jack30
  * @author Jelou
  * @author Joanmp17
  * @author Ktranz
@@ -94,7 +100,7 @@ $s_actiongroup_bugs = 'Incidencias seleccionadas';
 $s_actiongroup_error_issue_is_readonly = 'La incidencia es de solo lectura.';
 $s_all_projects = 'Todos los proyectos';
 $s_move_bugs = 'Mover Incidencias';
-$s_operation_successful = 'Operación exitosa.';
+$s_operation_successful = 'Operación completada correctamente.';
 $s_operation_warnings = 'Operación completada con advertencias.';
 $s_operation_failed = 'La operación no se completó correctamente.';
 $s_date_order = 'Fecha para ordenamiento';
@@ -107,7 +113,7 @@ $s_jump_to_bugnotes = 'Ir a notas';
 $s_jump_to_history = 'Ir al historial';
 $s_display_history = 'Mostrar historial';
 $s_public_project_msg = 'Este proyecto es público. Todos los usuarios tienen acceso.';
-$s_private_project_msg = 'Este proyecto es privado. Solo los administradores y usuarios agregados manualmente tienen acceso.';
+$s_private_project_msg = 'Este proyecto es privado. Sólo los administradores y usuarios añadidos manualmente tienen acceso.';
 $s_access_level_project = 'Nivel de acceso del proyecto';
 $s_view_submitted_bug_link = 'Ver incidencia reportada (%1$s)';
 $s_assigned_projects = 'Proyectos asignados';
@@ -116,24 +122,25 @@ $s_unassigned_projects_label = 'Proyectos sin asignar';
 $s_copy_users = 'Copiar usuarios';
 $s_copy_categories_from = 'Copiar categorías de';
 $s_copy_categories_to = 'Copiar categorías en';
+$s_copy_categories_exclude_inherited = 'Excluir categorías heredadas';
 $s_copy_versions_from = 'Copiar versiones de';
 $s_copy_versions_to = 'Copiar versiones en';
 $s_copy_users_from = 'Copiar usuarios de';
 $s_copy_users_to = 'Copiar usuarios en';
 $s_bug_history = 'Historial de la incidencia';
 $s_field = 'Campo';
-$s_old_value = 'Valor anterior';
+$s_old_value = 'Valor antiguo';
 $s_new_value = 'Valor nuevo';
 $s_date_modified = 'Fecha de modificación';
 $s_bugnote = 'Nota';
-$s_bugnote_view_state = 'Visibilidad de la nota';
+$s_bugnote_view_state = 'Estado de Vista de la nota';
 $s_bug_monitor = 'Incidencia monitorizada';
 $s_bug_end_monitor = 'Concluir monitorización';
 $s_announcement = 'Anuncio';
 $s_stays_on_top = 'Siempre arriba';
 $s_bugnote_link_title = 'Acceso directo a nota';
 $s_delete_bugnote_button = 'Eliminar nota';
-$s_delete_bugnote_sure_msg = '¿Confirmas que quieres eliminar esta nota?';
+$s_delete_bugnote_sure_msg = '¿Confirma que desea eliminar esta nota?';
 $s_bug_relationships = 'Relaciones';
 $s_empty_password_sure_msg = 'El usuario tiene una contraseña vacía. ¿Estás seguro de que quieres esto?';
 $s_empty_password_button = 'Usar contraseña en blanco';
@@ -146,7 +153,7 @@ $s_inherit_global = 'Heredar categorías globales';
 $s_inherit_parent = 'Heredar categorías padre';
 $s_update_subproject_inheritance = 'Actualizar herencia del subproyecto';
 $s_duplicate_of = 'duplicado de';
-$s_has_duplicate = 'está duplicada en';
+$s_has_duplicate = 'tiene duplicado';
 $s_related_to = 'relacionada con';
 $s_dependant_on = 'depende de';
 $s_blocks = 'bloquea';
@@ -250,7 +257,7 @@ Si ha solicitado esta verificación, visite el URL siguiente para cambiar su con
 $s_reset_request_admin_msg = 'Tu contraseña ha sido restablecida. Visita la siguiente URL para configurar una nueva:';
 $s_reset_request_in_progress_msg = 'Si ha proporcionado un usuario y contraseña correctos recibirá un mensaje de confirmación en su dirección de correo electrónico. Cuando reciba este mensaje siga las instrucciones para cambiar la contraseña de su cuenta.';
 $s_email_notification_title_for_status_bug_new = 'La siguiente incidencia tiene ahora el estado NUEVA (nuevamente)';
-$s_email_notification_title_for_status_bug_feedback = 'La siguiente incidencia requiere MÁS INFORMACIÓN (opinión).';
+$s_email_notification_title_for_status_bug_feedback = 'La incidencia siguiente requiere comentarios.';
 $s_email_notification_title_for_status_bug_acknowledged = 'La siguiente incidencia ha sido ACEPTADA.';
 $s_email_notification_title_for_status_bug_confirmed = 'La siguiente incidencia ha sido CONFIRMADA.';
 $s_email_notification_title_for_status_bug_assigned = 'La siguiente incidencia ha sido ASIGNADA.';
@@ -511,12 +518,10 @@ $s_log_page_time = 'Tiempo de ejecución';
 $s_log_page_caller = 'Invocador';
 $s_log_page_event = 'Evento';
 $s_please_report = 'Informa de esto al %1$s.';
-$s_warning_plain_password_authentication = '<strong>ATENCIÓN:</strong> La autenticación utilizada es de contraseñas de texto plano; esto expondrá sus contraseñas a los administradores.';
 $s_warning_default_administrator_account_present = '<strong>ATENCIÓN:</strong> Debería desactivar la cuenta por defecto \'administrator\' o cambiar la contraseña de la misma.';
 $s_warning_admin_directory_present = '<strong>Atención:</strong> el directorio «admin» debería eliminarse o restringirse su acceso.';
 $s_warning_change_setting = '<strong>Advertencia:</strong> "%1$s" no está establecido a su valor predeterminado (%2$s).';
 $s_warning_security_hazard = 'Esto es un riesgo potencial de seguridad que puede exponer información confidencial.';
-$s_warning_integrity_hazard = 'Esto hará que MantisBT continúe cuando se produzcan errores y puede generar problemas de integridad de sistema o datos.';
 $s_warning_debug_email = '<strong>Advertencia:</strong> "<code>debug_email</code>" no está establecido en <code>OFF</code>; todas las notificaciones por correo electrónico se enviarán a "%1$s".';
 $s_error_database_no_schema_version = '<strong>Error:</strong> la versión del esquema de la base de datos es 0. Esto puede producirse debido a un daño en la base de datos, por no haberse podido obtener el valor de «database_version» de la tabla de configuración, o bien, porque la estructura de la base de datos pertenece a una versión desactualizada de MantisBT (anterior a la 1.0.0).';
 $s_error_database_version_out_of_date_2 = '<strong>ATENCIÓN:</strong> La estructura de la base de datos parece estar desactualizada. Por favor actualícela <a href="admin/install.php">aquí</a> antes de iniciar sesión.';
@@ -545,7 +550,7 @@ $s_archives = 'Archivo de Noticias';
 $s_rss = 'RSS';
 $s_site_information = 'Información del sitio';
 $s_mantis_version = 'Versión de MantisBT';
-$s_schema_version = 'Versión de esquema';
+$s_schema_version = 'Versión del esquema de la base ded datos';
 $s_site_path = 'Ruta del Sitio';
 $s_core_path = 'Ruta del Núcleo';
 $s_plugin_path = 'Ruta de Plugins';
@@ -564,13 +569,13 @@ $s_default_filter = 'Filtro predeterminado';
 $s_create_filter_link = 'Crear Enlace Permanente';
 $s_create_short_link = 'Crear enlace corto';
 $s_filter_permalink = 'El siguiente es un enlace permanente para el filtro actualmente definido:';
-$s_manage_users_link = 'Administrar usuarios';
-$s_manage_projects_link = 'Administrar proyectos';
-$s_manage_custom_field_link = 'Administrar Campos Personalizados';
-$s_manage_global_profiles_link = 'Administrar Perfiles Globales';
-$s_manage_plugin_link = 'Administrar Plugins';
+$s_manage_users_link = 'Usuarios';
+$s_manage_projects_link = 'Proyectos';
+$s_manage_custom_field_link = 'Campos Personalizados';
+$s_manage_global_profiles_link = 'Perfiles globales';
+$s_manage_plugin_link = 'Complementos';
 $s_permissions_summary_report = 'Informe de Permisos';
-$s_manage_config_link = 'Administrar Configuración';
+$s_manage_config_link = 'Configuración';
 $s_manage_threshold_config = 'Límites del flujo de Trabajo';
 $s_manage_email_config = 'Notificaciones por correo electrónico';
 $s_manage_workflow_config = 'Transición de Estados';
@@ -651,6 +656,7 @@ $s_readonly_status = 'Estado en el que una incidencia pasa a ser de solo lectura
 $s_reopen_status = 'Estado en el que se establece una incidencia reabierta';
 $s_reopen_resolution = 'Resolución que se establece al reabrir una incidencia';
 $s_limit_view_unless_threshold_option = 'Ver incidencias de otros usuarios (si no se establece, el acceso se verá restringido a las incidencias reportadas, asignadas o monitoreadas por el usuario).';
+$s_export_issues = 'Exportar incidencias';
 $s_config_delete_sure = '¿Estás seguro de querer eliminar la configuración de %1$s en el proyecto %2$s?';
 $s_delete_config_button = 'Borrar Configuración';
 $s_configuration_report = 'Reporte de Configuración';
@@ -776,10 +782,10 @@ $s_reset_password_msg2 = 'Reinicializar Contraseña establece la misma en blanco
 $s_show_all_users = 'TODOS';
 $s_users_unused = 'NO USADO';
 $s_users_new = 'NUEVO';
+$s_email_not_unique = 'La dirección de correo electrónico ya está asociada con al menos otra cuenta de usuario.';
 $s_account_reset_msg = 'Se ha enviado un correo electrónico de solicitud de confirmación a las direcciones de correo electrónico del usuario seleccionado. Utilizándolo, el usuario podrá cambiar si contraseña.';
 $s_account_reset_msg2 = 'La contraseña de la cuenta fue establecida en blanco...';
 $s_account_unlock_msg = 'Se ha desbloqueado la cuenta.';
-$s_manage_user_protected_msg = 'Cuenta protegida. Los campos "Nivel de acceso" y "Activado" no se pueden modificar. Los demás campos se actualizaron satisfactoriamente.';
 $s_manage_user_updated_msg = 'La cuenta ha sido actualizada...';
 $s_email_user_updated_subject = 'Cuenta actualizada';
 $s_email_user_updated_msg = 'Tu cuenta ha sido actualizada por un administrador. Una lista de esos cambios es proveída debajo. Puedes actualizar los detalles y preferencias de tu cuenta en cualquier momento visitando el siguiente URL:';
@@ -876,6 +882,7 @@ $s_signup_done_title = 'Registro de cuenta procesado';
 $s_password_emailed_msg = 'Felicidades. Se ha registrado con éxito. Recibirá un mensaje por correo electrónico para verificar su dirección de correo electrónico. Haga click en el enlace que recibirá para activar su cuenta.';
 $s_no_reponse_msg = 'Tienes siete días para completar el proceso de confirmación de cuenta. Si no lo haces en ese plazo, tu nueva cuenta podría eliminarse.';
 $s_signup_captcha_request_label = 'Ingrese el código que se muestra en el cuadro de la derecha:';
+$s_signup_captcha_play = 'Reproducir el audio del código captcha';
 $s_signup_captcha_refresh = 'Generar un nuevo código';
 $s_signup_info = 'Al completar este proceso y la verificación de tus respuestas, te enviaremos un correo electrónico de confirmación a la dirección especificada.<br />Podrás activar tu cuenta usando el enlace incluido en el correo electrónico. Si no lo haces en siete días, la cuenta podrá eliminarse.<br />Debes ingresar una dirección de correo electrónico válida para poder recibir el mensaje de verificación.';
 $s_signup_title = 'Registrarse';
@@ -1247,6 +1254,7 @@ $s_database_information = 'Información de la base de datos de MantisBT';
 $s_path_information = 'Información de la Ruta de MantisBT';
 $s_mantisbt_database_statistics = 'Estadísticas de la base de datos de MantisBT';
 $s_php_version = 'Versión de PHP';
+$s_os_information = 'Información del OS';
 $s_adodb_version = 'Versión de ADOdb';
 $s_database_driver = 'Controlador de base de datos';
 $s_database_version_description = 'Versión de base de datos; Descripción';
@@ -1293,6 +1301,7 @@ $MANTIS_ERROR[ERROR_PROTECTED_ACCOUNT] = 'Esta cuenta está protegida. No tiene 
 $MANTIS_ERROR[ERROR_ACCESS_DENIED] = 'Acceso denegado.';
 $MANTIS_ERROR[ERROR_UPLOAD_FAILURE] = 'Ha fallado el proceso de carga del archivo.  El archivo no puede ser leído por MantisBT. Verifique la configuración del proyecto.';
 $MANTIS_ERROR[ERROR_FILE_TOO_BIG] = 'Ha fallado el proceso de carga del archivo.  Posiblemente el tamaño del archivo sea mayor de lo que actualmente está permitido en esta instalación de PHP.';
+$MANTIS_ERROR[ERROR_FILE_NAME_TOO_LONG] = 'El nombre del archivo "%1$s" es demasiado largo.';
 $MANTIS_ERROR[ERROR_GPC_VAR_NOT_FOUND] = 'Un parámetro requerido en esta página (%1$s) no pudo hallarse.';
 $MANTIS_ERROR[ERROR_USER_NAME_NOT_UNIQUE] = 'Ese nombre de usuario está en uso. Por favor, vuelva atrás y elija otro.';
 $MANTIS_ERROR[ERROR_USER_EMAIL_NOT_UNIQUE] = 'El correo electrónico ya está en uso. Por favor, vuelva atrás y elija otro.';
@@ -1347,7 +1356,6 @@ $MANTIS_ERROR[ERROR_LDAP_AUTH_FAILED] = 'Ha fallado la autenticación LDAP';
 $MANTIS_ERROR[ERROR_LDAP_SERVER_CONNECT_FAILED] = 'Falló la conexión al servidor LDAP';
 $MANTIS_ERROR[ERROR_LDAP_UPDATE_FAILED] = 'Ha fallado la actualización del registro LDAP.';
 $MANTIS_ERROR[ERROR_LDAP_USER_NOT_FOUND] = 'No se encontró el registro LDAP del usuario.';
-$MANTIS_ERROR[ERROR_LDAP_EXTENSION_NOT_LOADED] = 'Extensión LDAP No Cargada.';
 $MANTIS_ERROR[ERROR_LDAP_UNABLE_TO_SET_MIN_TLS] = 'No se pudo establecer la versión mínima de TLS en el servidor LDAP.';
 $MANTIS_ERROR[ERROR_LDAP_UNABLE_TO_STARTTLS] = 'No se puede iniciar StartTLS en el servidor LDAP.';
 $MANTIS_ERROR[ERROR_DB_CONNECT_FAILED] = 'Ha fallado la conexión a la base de datos. El error devuelto por la base de datos fue #%1$d: %2$s';
@@ -1355,10 +1363,10 @@ $MANTIS_ERROR[ERROR_DB_QUERY_FAILED] = 'Ha fallado la consulta a la base de dato
 $MANTIS_ERROR[ERROR_DB_SELECT_FAILED] = 'Ha fallado la selección de la base de datos. El error devuelto por la base de datos fue #%1$d: %2$s';
 $MANTIS_ERROR[ERROR_DB_IDENTIFIER_TOO_LONG] = 'El identificador de la base de datos "%1$s" es demasiado largo. Intenta reducir el tamaño de g_db_table_prefix/suffix';
 $MANTIS_ERROR[ERROR_CATEGORY_DUPLICATE] = 'Ya existe una categoría con ese nombre.';
-$MANTIS_ERROR[ERROR_CATEGORY_NO_ACTION] = 'No se ha especificado ninguna acción de copia.';
+$MANTIS_ERROR[ERROR_NO_COPY_ACTION] = 'No se ha especificado ninguna acción de copia.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND] = 'Categoría no encontrada.';
 $MANTIS_ERROR[ERROR_CATEGORY_NOT_FOUND_FOR_PROJECT] = 'Categoría \'%1$s\' no encontrada para el proyecto \'%2$s\'.';
-$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_DEFAULT] = 'Esta categoría no puede eliminarse, porque ha sido definida como "categoría por defecto para mover incidencias".';
+$MANTIS_ERROR[ERROR_CATEGORY_CANNOT_UPDATE_DEFAULT] = 'Esta categoría no puede eliminarse, porque ha sido definida como "categoría por defecto para mover incidencias".';
 $MANTIS_ERROR[ERROR_CATEGORY_CANNOT_DELETE_HAS_ISSUES] = 'La categoría "%1$s" no se puede eliminar porque está asociada con una o más incidencias.';
 $MANTIS_ERROR[ERROR_VERSION_DUPLICATE] = 'Ya existe una versión con ese nombre.';
 $MANTIS_ERROR[ERROR_VERSION_NOT_FOUND] = 'Versión \'%1$s\' no encontrada.';
@@ -1410,7 +1418,6 @@ $MANTIS_ERROR[ERROR_SESSION_VAR_NOT_FOUND] = 'Un parámetro de sesión esperado 
 $MANTIS_ERROR[ERROR_SESSION_NOT_VALID] = 'Su sesión ya no es válida.';
 $MANTIS_ERROR[ERROR_FORM_TOKEN_INVALID] = 'Token de seguridad del formulario no válido. Esto podría ser causado por haberse agotado el tiempo de espera de la sesión, o por enviar el formulario dos veces por accidente.';
 $MANTIS_ERROR[ERROR_CRYPTO_MASTER_SALT_INVALID] = 'Por razones de seguridad MantisBT no funcionará cuando $g_crypto_master_salt no se haya especificado correctamente en config_inc.php o tenga una longitud menor a 16 caracteres.';
-$MANTIS_ERROR[ERROR_CRYPTO_CAN_NOT_GENERATE_STRONG_RANDOMNESS] = 'No es posible encontrar una fuente de aleatoriedad fuerte para propósitos criptográficos.';
 $MANTIS_ERROR[ERROR_INVALID_REQUEST_METHOD] = 'Esta página no puede ser accedida utilizando este método.';
 $MANTIS_ERROR[ERROR_INVALID_SORT_FIELD] = 'Campo no válido para ordenamiento.';
 $MANTIS_ERROR[ERROR_INVALID_DATE_FORMAT] = 'Formato de fecha no válido';
@@ -1424,6 +1431,8 @@ $MANTIS_ERROR[ERROR_SPAM_SUSPECTED] = 'Has alcanzado el límite de actividad per
 $MANTIS_ERROR[ERROR_FIELD_TOO_LONG] = 'El campo "%1$s" debe ser menor o igual a %2$d caracteres.';
 $MANTIS_ERROR[ERROR_API_TOKEN_NAME_NOT_UNIQUE] = 'El nombre de token "%s" ya está en uso. Por favor, vuelva atrás y seleccione otro.';
 $MANTIS_ERROR[ERROR_LOGFILE_NOT_WRITABLE] = 'El archivo especificado en $g_log_destination "%s" no se puede escribir.';
+$MANTIS_ERROR[ERROR_MONITOR_ACCESS_TOO_LOW] = 'El usuario añadido no tiene suficientes derechos de acceso para controlar esta problemática.';
+$MANTIS_ERROR[ERROR_USER_TOKEN_NOT_FOUND] = 'No se encontró el token de API de usuario con ID " %d ".';
 $s_dropzone_default_message = 'Adjunta archivos arrastrándolos y colocándolos aquí, seleccionándolos o pegándolos.';
 $s_dropzone_fallback_message = 'Tu navegador no admite subir archivos arrastrando y soltando.';
 $s_dropzone_file_too_big = 'El archivo es demasiado grande ({{filesize}} MiB). Tamaño máximo: {{maxFilesize}} MiB.';
@@ -1434,7 +1443,8 @@ $s_dropzone_cancel_upload_confirmation = '¿Seguro quieres cancelar esta subida?
 $s_dropzone_remove_file = 'Eliminar archivo';
 $s_dropzone_max_files_exceeded = 'No puedes subir más archivos.';
 $s_dropzone_not_supported = 'Dropzone.js no admite navegadores antiguos.';
-$s_dropzone_multiple_files_too_big = 'Los archivos siguientes:{{files}}exceden el tamaño máximo permitido ({{maxFilesize}} MiB)';
+$s_dropzone_multiple_files_too_big = 'Los siguientes archivos exceden el tamaño máximo permitido ({{maxFilesize}} MiB):{{files}}';
+$s_dropzone_multiple_filenames_too_long = 'Los nombres siguiente son demasiado largos (máximo {{maxFilenameLength}} caracteres): {{files}}';
 $s_save = 'Guardar';
 $s_reset = 'Restablecer';
 $s_persist = 'Persiste';
